@@ -96,6 +96,7 @@ app.get('/', (c) => {
 // ── 404 Handler ────────────────────────────────────────────────────────────────
 app.notFound((c) => {
   const reqId = c.get('reqId') || 'N/A';
+  c.header('Access-Control-Allow-Origin', '*');
   return c.json({ message: 'Route not found', reqId }, 404);
 });
 
@@ -103,6 +104,9 @@ app.notFound((c) => {
 app.onError((err, c) => {
   const reqId = c.get('reqId') || 'N/A';
   console.error(`[${reqId}] GLOBAL ERROR:`, err.stack || err.message || err);
+  c.header('Access-Control-Allow-Origin', '*');
+  c.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  c.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Request-ID');
   return c.json({
     reqId,
     success: false,
