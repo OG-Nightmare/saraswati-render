@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://saraswati-backend.parikshitkapoor2.workers.dev/api/:path*"
+      "destination": "https://saraswati-final.parikshitkapoor2.workers.dev/api/:path*"
     },
     {
       "source": "/(.*)",
