@@ -99,30 +99,10 @@ router.get('/', async (c) => {
       insuranceStatus: 1, status: 1, featured: 1, createdAt: 1,
     };
 
-    const runQueries = async () => {
-      const [vehicles, total] = await Promise.all([
-        db.collection('vehicles').find(filter, { projection }).sort(sortObj).skip(skip).limit(limitNum).maxTimeMS(12000).toArray(),
-        db.collection('vehicles').countDocuments(filter, { maxTimeMS: 12000 }),
-      ]);
-      return [vehicles, total];
-    };
-
-    const makeTimeoutGuard = () => new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('DB query timed out (14000ms guard)')), 14000)
-    );
-
-    let vehicles, total;
-    try {
-      [vehicles, total] = await Promise.race([runQueries(), makeTimeoutGuard()]);
-    } catch (dbErr) {
-      console.warn('[GET /vehicles] DB retry triggered:', dbErr.message);
-      const freshDb = await connectDB();
-      [vehicles, total] = await Promise.race([
-        freshDb.collection('vehicles').find(filter, { projection }).sort(sortObj).skip(skip).limit(limitNum).maxTimeMS(12000).toArray()
-          .then(async (v) => [v, await freshDb.collection('vehicles').countDocuments(filter, { maxTimeMS: 12000 })]),
-        makeTimeoutGuard(),
-      ]);
-    }
+    const [vehicles, total] = await Promise.all([
+      db.collection('vehicles').find(filter, { projection }).sort(sortObj).skip(skip).limit(limitNum).toArray(),
+      db.collection('vehicles').countDocuments(filter),
+    ]);
 
     const tQuery = performance.now();
     const responsePayload = {
@@ -158,18 +138,13 @@ router.get('/:id', async (c) => {
   if (!isValidObjectId(id)) return c.json({ message: 'Invalid vehicle ID format' }, 404);
   try {
     const db = await connectDB();
-
-    const queryPromise = db.collection('vehicles').findOne({ _id: new ObjectId(id) }, { maxTimeMS: 3500 });
-    const timeoutGuard = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('Vehicle findOne timed out (4000ms guard)')), 4000)
-    );
-    const vehicle = await Promise.race([queryPromise, timeoutGuard]);
+    const vehicle = await db.collection('vehicles').findOne({ _id: new ObjectId(id) });
 
     if (!vehicle) return c.json({ message: 'Vehicle not found' }, 404);
     return c.json(vehicle);
   } catch (err) {
     console.error(`[GET /vehicles/:id] Error for ${id}:`, err.stack || err);
-    return c.json({ message: 'Server error' }, 500);
+    return c.json({ message: err.message || 'Server error', error: err.message }, 500);
   }
 });
 
