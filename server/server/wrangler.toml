@@ -1,0 +1,9 @@
+name = "saraswati-backend"
+main = "worker.js"
+compatibility_date = "2026-07-14"
+compatibility_flags = [ "nodejs_compat" ]
+minify = true
+
+[vars]
+PORT = "8080"
+NODE_ENV = "production"

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #F97316;
+  --color-primary-hover: #EA6C10;
+  --color-primary-light: #FFF7ED;
+  --color-accent: #4F46E5;
+  --color-accent-light: #EEF2FF;
+  --color-bg: #FAFAF8;
+  --color-bg-secondary: #F4F3F0;
+  --color-card: #FFFFFF;
+  --color-border: #E5E4E0;
+  --color-border-strong: #D1D0CB;
+  --color-text: #1C1C1E;
+  --color-text-muted: #6B6965;
+  --color-text-light: #9C9A97;
+  --color-dark: #111118;
+  --color-dark-card: #1C1C28;
+  --color-success: #16A34A;
+  --color-superbike: #DC2626;
+  --color-city: #2563EB;
+
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FAFAF8;
+    color: #1C1C1E;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', system-ui, sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F4F3F0;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #F97316;
+    border-radius: 3px;
+  }
+
+  /* Utility to hide scrollbars */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
