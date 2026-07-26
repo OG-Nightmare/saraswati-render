@@ -33,7 +33,7 @@ app.use('*', async (c, next) => {
   if (path === '/health' || path === '/api/health') return next();
   try {
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('MongoDB connection timed out (3s)')), 3000)
+      setTimeout(() => reject(new Error('MongoDB connection timed out (20s)')), 20000)
     );
     await Promise.race([connectDB(), timeoutPromise]);
     await next();

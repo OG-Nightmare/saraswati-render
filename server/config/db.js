@@ -61,22 +61,17 @@ const createIndexes = async (database) => {
 export const connectDB = async () => {
   // Already connected — return immediately
   if (client && db) {
-    try {
-      // Quick ping to verify connection is still alive
-      await db.command({ ping: 1 });
-      return db;
-    } catch (_) {
-      // Connection dropped — reset and reconnect below
-      client = null;
-      db = null;
-      connectionPromise = null;
-    }
+    return db;
   }
 
   // Await any in-flight connection attempt
   if (connectionPromise) {
-    await connectionPromise;
-    if (db) return db;
+    try {
+      await connectionPromise;
+      if (db) return db;
+    } catch (_) {
+      connectionPromise = null;
+    }
   }
 
   const rawUri = process.env.MONGODB_URI;
@@ -84,36 +79,38 @@ export const connectDB = async () => {
   const uri = fixMongoUri(rawUri);
 
   connectionPromise = (async () => {
-    console.log('[DB] Initiating new MongoClient connection...');
-    const newClient = new MongoClient(uri, {
-      serverSelectionTimeoutMS: 5000,
-      connectTimeoutMS: 5000,
-      socketTimeoutMS: 10000,
-      maxPoolSize: 5,
-      minPoolSize: 1,
-      maxIdleTimeMS: 10000,
-    });
-    await newClient.connect();
-    const dbName = new URL(uri.replace('mongodb+srv://', 'https://')).pathname.slice(1).split('?')[0] || 'saraswati';
-    const database = newClient.db(dbName || 'saraswati');
-    await createIndexes(database);
-    client = newClient;
-    db = database;
-    console.log(`[DB] Connected successfully to database: ${database.databaseName}`);
-    return database;
+    try {
+      console.log('[DB] Initiating new MongoClient connection...');
+      const newClient = new MongoClient(uri, {
+        serverSelectionTimeoutMS: 15000,
+        connectTimeoutMS: 15000,
+        socketTimeoutMS: 20000,
+        maxPoolSize: 2,
+        minPoolSize: 0,
+        maxIdleTimeMS: 15000,
+      });
+      await newClient.connect();
+      const dbName = new URL(uri.replace('mongodb+srv://', 'https://')).pathname.slice(1).split('?')[0] || 'saraswati';
+      const database = newClient.db(dbName || 'saraswati');
+      createIndexes(database).catch(e => console.warn('[DB] Index creation warning:', e.message));
+      client = newClient;
+      db = database;
+      console.log(`[DB] Connected successfully to database: ${database.databaseName}`);
+      return database;
+    } catch (err) {
+      client = null;
+      db = null;
+      console.error('[DB] Connection failed:', err.message);
+      throw err;
+    } finally {
+      connectionPromise = null;
+    }
   })();
 
   try {
-    await connectionPromise;
-    return db;
+    return await connectionPromise;
   } catch (err) {
-    connectionPromise = null;
-    client = null;
-    db = null;
-    console.error('[DB] Connection failed:', err.message);
     throw err;
-  } finally {
-    if (connectionPromise) connectionPromise = null;
   }
 };
 
