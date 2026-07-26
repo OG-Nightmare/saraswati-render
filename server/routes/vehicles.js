@@ -101,23 +101,27 @@ router.get('/', async (c) => {
 
     const runQueries = async () => {
       const [vehicles, total] = await Promise.all([
-        db.collection('vehicles').find(filter, { projection }).sort(sortObj).skip(skip).limit(limitNum).maxTimeMS(3500).toArray(),
-        db.collection('vehicles').countDocuments(filter, { maxTimeMS: 3500 }),
+        db.collection('vehicles').find(filter, { projection }).sort(sortObj).skip(skip).limit(limitNum).maxTimeMS(12000).toArray(),
+        db.collection('vehicles').countDocuments(filter, { maxTimeMS: 12000 }),
       ]);
       return [vehicles, total];
     };
 
-    const timeoutGuard = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('DB query timed out (4000ms guard)')), 4000)
+    const makeTimeoutGuard = () => new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('DB query timed out (14000ms guard)')), 14000)
     );
 
     let vehicles, total;
     try {
-      [vehicles, total] = await Promise.race([runQueries(), timeoutGuard]);
+      [vehicles, total] = await Promise.race([runQueries(), makeTimeoutGuard()]);
     } catch (dbErr) {
       console.warn('[GET /vehicles] DB retry triggered:', dbErr.message);
-      await connectDB();
-      [vehicles, total] = await Promise.race([runQueries(), timeoutGuard]);
+      const freshDb = await connectDB();
+      [vehicles, total] = await Promise.race([
+        freshDb.collection('vehicles').find(filter, { projection }).sort(sortObj).skip(skip).limit(limitNum).maxTimeMS(12000).toArray()
+          .then(async (v) => [v, await freshDb.collection('vehicles').countDocuments(filter, { maxTimeMS: 12000 })]),
+        makeTimeoutGuard(),
+      ]);
     }
 
     const tQuery = performance.now();
@@ -144,7 +148,7 @@ router.get('/', async (c) => {
     return c.body(jsonString, 200);
   } catch (err) {
     console.error('[GET /vehicles] Error:', err.stack || err);
-    return c.json({ message: 'Server error' }, 500);
+    return c.json({ message: err.message || 'Server error', error: err.message }, 500);
   }
 });
 
