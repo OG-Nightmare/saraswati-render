@@ -5,33 +5,14 @@ import { connectDB } from './config/db.js';
 
 const app = new Hono();
 
-// ── Allowed Origins ────────────────────────────────────────────────────────────
-const staticAllowedOrigins = [
-  'https://saraswati-eight.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:5174',
-].filter(Boolean);
-
-const isOriginAllowed = (origin) => {
-  if (!origin) return true;
-  if (staticAllowedOrigins.includes(origin)) return true;
-  if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) return true;
-  if (/^https:\/\/.*\.vercel\.app$/.test(origin)) return true;
-  if (/^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) return true;
-  return false;
-};
 
 // ── CORS Middleware ────────────────────────────────────────────────────────────
 app.use('*', cors({
-  origin: (origin) => {
-    if (!origin || isOriginAllowed(origin)) return origin || '*';
-    if (process.env.NODE_ENV === 'production') return null; // Triggers 403 via cors
-    return origin;
-  },
+  origin: '*',
   allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization', 'X-Request-ID'],
   exposeHeaders: ['Server-Timing', 'X-Request-ID'],
-  credentials: true,
+  credentials: false,
   maxAge: 86400,
 }));
 

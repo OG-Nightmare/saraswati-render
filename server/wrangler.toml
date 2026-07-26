@@ -1,4 +1,4 @@
-name = "saraswati-backend"
+name = "saraswati-final"
 main = "worker.js"
 compatibility_date = "2026-07-14"
 compatibility_flags = [ "nodejs_compat" ]
