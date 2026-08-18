@@ -1,6 +1,9 @@
 node_modules/
-# .env  # removed from ignore — VITE_API_URL is a public URL, not a secret
 dist/
 uploads/
 *.log
 .DS_Store
+*.timestamp*
+server/.env
+server/server/.env
+

@@ -1,11 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Fuel, Calendar, Gauge, ArrowRight, Zap, MapPin } from 'lucide-react';
-
-const CATEGORY_COLORS = {
-  superbike: { bg: 'bg-red-50', text: 'text-red-600', border: 'border-red-200', dot: 'bg-red-500' },
-  city: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-200', dot: 'bg-blue-500' },
-};
+import { Fuel, Calendar, Gauge, ArrowRight, Zap, MapPin, ShieldCheck, Flame } from 'lucide-react';
 
 const SUBCATEGORY_ICONS = {
   cruiser: '🛣️',
@@ -21,7 +16,6 @@ export default function VehicleCard({ vehicle, index = 0 }) {
   const firstImg = vehicle.images?.[0];
   const img = (firstImg && typeof firstImg === 'object' ? firstImg.url : firstImg) || 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80';
   const formattedPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(vehicle.price);
-  const catStyle = CATEGORY_COLORS[vehicle.category] || CATEGORY_COLORS.city;
 
   return (
     <motion.div
@@ -29,109 +23,98 @@ export default function VehicleCard({ vehicle, index = 0 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      whileHover={{ y: -6, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-      className="group bg-white rounded-2xl border border-[#E5E4E0] overflow-hidden hover:border-[#F97316]/40 hover:shadow-2xl hover:shadow-orange-100 transition-all duration-300 cursor-pointer"
+      whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300, damping: 22 } }}
+      className="group bg-white rounded-3xl border border-[#E2E8F0] overflow-hidden hover:border-[#FF5500]/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer flex flex-col justify-between"
     >
-      {/* Image */}
-      <div className="relative overflow-hidden h-64 sm:h-80 md:h-96 lg:h-[380px]">
+      {/* Image Container */}
+      <div className="relative overflow-hidden h-60 sm:h-72 w-full bg-[#0F172A]">
         <img
           src={img}
           alt={vehicle.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
           loading={index < 4 ? 'eager' : 'lazy'}
-          fetchPriority={index < 2 ? 'high' : 'auto'}
           decoding="async"
         />
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        {/* Dynamic Dark Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 via-[#0F172A]/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
 
-        {/* Category badge */}
-        {vehicle.category && (
-          <span className={`absolute top-3 left-3 flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full border ${catStyle.bg} ${catStyle.text} ${catStyle.border} backdrop-blur-sm`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${catStyle.dot}`} />
-            {vehicle.category === 'superbike' ? 'Superbike' : 'City Bike'}
+        {/* Category & Status Badge */}
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+          <span className="flex items-center gap-1 text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-pulse" />
+            {vehicle.category === 'superbike' ? 'Track Verified Superbike' : 'Verified Ride'}
           </span>
-        )}
+          {vehicle.featured && (
+            <span className="flex items-center gap-1 text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md">
+              <Zap size={11} fill="white" /> Featured
+            </span>
+          )}
+        </div>
 
-        {/* Featured badge */}
-        {vehicle.featured && (
-          <span className="absolute top-3 right-3 flex items-center gap-1 bg-[#F97316] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-lg">
-            <Zap size={10} fill="white" />
-            Featured
-          </span>
-        )}
-
-        {/* Status overlay (Sold, Reserved, Booked, etc.) */}
+        {/* Status Overlay (Sold, Booked) */}
         {vehicle.status && vehicle.status !== 'available' && (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
-            <span className={`text-white font-black text-2xl rotate-[-20deg] border-4 px-4 py-1.5 rounded tracking-wider uppercase ${
-              vehicle.status === 'sold'
-                ? 'border-red-500 text-red-500 bg-red-950/25'
-                : vehicle.status === 'reserved'
-                ? 'border-yellow-500 text-yellow-500 bg-yellow-950/25'
-                : 'border-orange-500 text-orange-500 bg-orange-950/25'
-            }`}>
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-xs flex items-center justify-center z-20">
+            <span className="text-white font-black text-xl tracking-widest uppercase border-4 border-red-500 text-red-500 bg-red-950/40 px-4 py-1.5 rounded-xl rotate-[-12deg]">
               {vehicle.status}
             </span>
           </div>
         )}
 
-        {/* Price pill at bottom */}
-        <div className="absolute bottom-3 left-3 bg-white text-[#1C1C1E] text-sm font-black px-3 py-1 rounded-xl shadow-md">
-          {formattedPrice}
-        </div>
-
-        {/* Subcategory icon */}
+        {/* Subcategory Icon Badge */}
         {vehicle.subcategory && (
-          <div className="absolute bottom-3 right-3 bg-black/40 backdrop-blur-sm text-lg w-9 h-9 rounded-xl flex items-center justify-center">
-            {SUBCATEGORY_ICONS[vehicle.subcategory] || '🏍️'}
+          <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-sm w-8 h-8 rounded-full flex items-center justify-center shadow-md">
+            {SUBCATEGORY_ICONS[vehicle.subcategory] || '🏎️'}
           </div>
         )}
+
+        {/* Floating Price Tag */}
+        <div className="absolute bottom-3 left-3 bg-[#FF5500] text-white text-sm font-black px-3.5 py-1.5 rounded-xl shadow-lg flex items-center gap-1" style={{ fontFamily: 'Space Grotesk, monospace' }}>
+          {formattedPrice}
+        </div>
       </div>
 
-      {/* Info */}
-      <div className="p-4">
-        <h3 className="text-[#1C1C1E] font-bold text-base mb-1 group-hover:text-[#F97316] transition-colors line-clamp-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
-          {vehicle.title}
-        </h3>
-
-        {/* Subcategory tag */}
-        {vehicle.subcategory && (
-          <span className="inline-block text-[10px] font-semibold uppercase tracking-wide text-[#9C9A97] bg-[#F4F3F0] px-2 py-0.5 rounded-md mb-3 capitalize">
-            {vehicle.subcategory}
-          </span>
-        )}
-
-        <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-[#6B6965] mb-4">
-          <span className="flex items-center gap-1">
-            <Calendar size={11} className="text-[#F97316]" />
-            {vehicle.year}
-          </span>
-          <span className="flex items-center gap-1">
-            <Gauge size={11} className="text-[#F97316]" />
-            {vehicle.kilometers?.toLocaleString()} km
-          </span>
-          <span className="flex items-center gap-1">
-            <Fuel size={11} className="text-[#F97316]" />
-            {vehicle.fuelType}
-          </span>
-          {vehicle.registrationState && (
-            <span className="flex items-center gap-1">
-              <MapPin size={11} className="text-[#F97316]" />
-              {vehicle.registrationState}
+      {/* Info Section */}
+      <div className="p-5 flex flex-col justify-between flex-1 space-y-4">
+        <div>
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#64748B] uppercase tracking-wider mb-1">
+            <span>{vehicle.brand || 'Luxury Deal'}</span>
+            <span className="text-[#FF5500] flex items-center gap-1">
+              <ShieldCheck size={12} /> Verified
             </span>
-          )}
+          </div>
+
+          <h3 className="text-[#0F172A] font-extrabold text-lg group-hover:text-[#FF5500] transition-colors line-clamp-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            {vehicle.title}
+          </h3>
         </div>
 
+        {/* Specs Pill Grid */}
+        <div className="grid grid-cols-3 gap-2 bg-[#F8FAFC] border border-[#E2E8F0] p-2.5 rounded-xl text-center text-xs">
+          <div>
+            <span className="text-[10px] text-[#64748B] uppercase font-bold block">Year</span>
+            <span className="font-extrabold text-[#0F172A]">{vehicle.year}</span>
+          </div>
+          <div className="border-x border-[#E2E8F0]">
+            <span className="text-[10px] text-[#64748B] uppercase font-bold block">KM Run</span>
+            <span className="font-extrabold text-[#0F172A]">{vehicle.kilometers ? `${(vehicle.kilometers / 1000).toFixed(1)}k` : 'N/A'}</span>
+          </div>
+          <div>
+            <span className="text-[10px] text-[#64748B] uppercase font-bold block">Engine</span>
+            <span className="font-extrabold text-[#0F172A] truncate block">{vehicle.displacement || vehicle.fuelType || 'Petrol'}</span>
+          </div>
+        </div>
+
+        {/* Action Button */}
         <Link
           to={`/inventory/${vehicle._id}`}
-          className="flex items-center justify-between w-full py-2.5 px-4 bg-[#F4F3F0] text-[#1C1C1E] rounded-xl text-sm font-semibold hover:bg-[#F97316] hover:text-white transition-all duration-200 group/btn"
+          className="flex items-center justify-between w-full py-3 px-4 bg-[#0F172A] text-white rounded-xl text-xs font-black uppercase tracking-wider hover:bg-[#FF5500] transition-all duration-300 shadow-md group/btn"
         >
-          View Details
-          <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+          <span>Explore Superbike</span>
+          <ArrowRight size={15} className="group-hover/btn:translate-x-1 transition-transform" />
         </Link>
       </div>
     </motion.div>
   );
 }
+
