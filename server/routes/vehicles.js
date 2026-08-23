@@ -97,6 +97,7 @@ router.get('/', async (c) => {
       year: 1, price: 1, fuelType: 1, transmission: 1, ownership: 1,
       kilometers: 1, features: 1, images: 1, registrationState: 1,
       insuranceStatus: 1, status: 1, featured: 1, createdAt: 1,
+      power: 1, acceleration: 1, topSpeed: 1, displacement: 1, torque: 1, weight: 1,
     };
 
     const [vehicles, total] = await Promise.all([
@@ -192,6 +193,12 @@ router.post('/', authMiddleware, async (c) => {
       sellerNotes: data.sellerNotes || '',
       status: data.status || 'available',
       featured: Boolean(data.featured),
+      power: String(data.power || '').trim(),
+      acceleration: String(data.acceleration || '').trim(),
+      topSpeed: String(data.topSpeed || '').trim(),
+      displacement: String(data.displacement || '').trim(),
+      torque: String(data.torque || '').trim(),
+      weight: String(data.weight || '').trim(),
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -262,6 +269,12 @@ router.put('/:id', authMiddleware, async (c) => {
       sellerNotes: data.sellerNotes ?? existing.sellerNotes,
       status: data.status ?? existing.status,
       featured: data.featured !== undefined ? Boolean(data.featured) : existing.featured,
+      power: String(data.power ?? existing.power ?? '').trim(),
+      acceleration: String(data.acceleration ?? existing.acceleration ?? '').trim(),
+      topSpeed: String(data.topSpeed ?? existing.topSpeed ?? '').trim(),
+      displacement: String(data.displacement ?? existing.displacement ?? '').trim(),
+      torque: String(data.torque ?? existing.torque ?? '').trim(),
+      weight: String(data.weight ?? existing.weight ?? '').trim(),
       updatedAt: new Date(),
     };
 

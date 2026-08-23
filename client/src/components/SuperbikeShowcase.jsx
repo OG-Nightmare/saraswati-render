@@ -1,12 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Zap, ShieldCheck, ArrowRight, Gauge, Activity, Flame, Cpu, Award } from 'lucide-react';
-import { HERO_SUPERBIKES } from './PhotoShuffleHero';
+import { HERO_SUPERBIKES, vehicleToHeroBike } from './PhotoShuffleHero';
+import api from '../lib/api';
 
 export default function SuperbikeShowcase() {
+  const [bikes, setBikes] = useState(HERO_SUPERBIKES);
   const [selectedId, setSelectedId] = useState(HERO_SUPERBIKES[0].id);
-  const bike = HERO_SUPERBIKES.find((b) => b.id === selectedId) || HERO_SUPERBIKES[0];
+
+  useEffect(() => {
+    api
+      .get('/vehicles?featured=true&limit=10&status=available')
+      .then((res) => {
+        const list = Array.isArray(res.data?.vehicles)
+          ? res.data.vehicles
+          : Array.isArray(res.data)
+          ? res.data
+          : [];
+        if (list.length > 0) {
+          const mapped = list.map(vehicleToHeroBike);
+          setBikes(mapped);
+          setSelectedId(mapped[0].id);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const bike = bikes.find((b) => b.id === selectedId) || bikes[0];
 
   return (
     <section className="py-20 bg-white relative overflow-hidden">
@@ -35,7 +56,7 @@ export default function SuperbikeShowcase() {
 
         {/* Tab Switcher */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-hide mb-8">
-          {HERO_SUPERBIKES.map((item) => {
+          {bikes.map((item) => {
             const isSelected = item.id === selectedId;
             return (
               <button

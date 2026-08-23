@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Plus, Edit, Trash2, Eye, Bike, MessageSquare, Star, LogOut, X, Upload, CheckCircle } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, Bike, MessageSquare, Star, LogOut, X, Upload, CheckCircle, Zap } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../lib/api';
 import toast from 'react-hot-toast';
@@ -10,11 +10,31 @@ import BikeLoader from '../components/BikeLoader';
 // ── Vehicle Form Modal ─────────────────────────────────────────────────────────
 function VehicleModal({ vehicle, onClose, onSaved }) {
   const isEdit = !!vehicle;
-  const [form, setForm] = useState(vehicle || {
-    title: '', brand: '', model: '', type: 'bike', category: 'city', year: new Date().getFullYear(),
-    price: '', fuelType: 'Petrol', transmission: 'Manual', ownership: 1,
-    kilometers: '', description: '', features: '', sellerNotes: '',
-    registrationState: 'Delhi', insuranceStatus: 'Active', status: 'available', featured: false,
+  const [form, setForm] = useState({
+    title: vehicle?.title || '',
+    brand: vehicle?.brand || '',
+    model: vehicle?.model || '',
+    type: vehicle?.type || 'bike',
+    category: vehicle?.category || 'city',
+    year: vehicle?.year || new Date().getFullYear(),
+    price: vehicle?.price || '',
+    fuelType: vehicle?.fuelType || 'Petrol',
+    transmission: vehicle?.transmission || 'Manual',
+    ownership: vehicle?.ownership || 1,
+    kilometers: vehicle?.kilometers || '',
+    description: vehicle?.description || '',
+    features: vehicle?.features || '',
+    sellerNotes: vehicle?.sellerNotes || '',
+    registrationState: vehicle?.registrationState || 'Delhi',
+    insuranceStatus: vehicle?.insuranceStatus || 'Active',
+    status: vehicle?.status || 'available',
+    featured: vehicle?.featured || false,
+    power: vehicle?.power || '',
+    acceleration: vehicle?.acceleration || '',
+    topSpeed: vehicle?.topSpeed || '',
+    displacement: vehicle?.displacement || '',
+    torque: vehicle?.torque || '',
+    weight: vehicle?.weight || '',
   });
   const [files, setFiles] = useState([]);                           // new files to upload
   const [keepImages, setKeepImages] = useState(vehicle?.images || []); // existing images to keep
@@ -175,8 +195,43 @@ function VehicleModal({ vehicle, onClose, onSaved }) {
             </div>
             <div className="flex items-center gap-2 col-span-2">
               <input type="checkbox" id="featured" checked={form.featured} onChange={e => set('featured', e.target.checked)} className="accent-[#FF6B00] w-4 h-4" />
-              <label htmlFor="featured" className="text-[#BDBDBD] text-sm">Mark as Featured</label>
+              <label htmlFor="featured" className="text-[#BDBDBD] text-sm font-semibold">Mark as Featured (Hero Showcase)</label>
             </div>
+
+            {/* ── Featured Vehicle Specs (Visible only when 'Mark as Featured' is checked) ── */}
+            {form.featured && (
+              <div className="col-span-2 bg-[#1A1A1A] border border-[#FF6B00]/40 rounded-2xl p-4 space-y-3 shadow-inner">
+                <div className="flex items-center gap-2 text-[#FF6B00] font-black text-xs uppercase tracking-wider">
+                  <Zap size={15} /> Featured Superbike Telemetry & Performance Specs
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="text-[#BDBDBD] text-xs mb-1 block font-medium">Max Power</label>
+                    <input className={inputCls} value={form.power} onChange={e => set('power', e.target.value)} placeholder="e.g. 207 HP" />
+                  </div>
+                  <div>
+                    <label className="text-[#BDBDBD] text-xs mb-1 block font-medium">0-100 km/h</label>
+                    <input className={inputCls} value={form.acceleration} onChange={e => set('acceleration', e.target.value)} placeholder="e.g. 2.9s" />
+                  </div>
+                  <div>
+                    <label className="text-[#BDBDBD] text-xs mb-1 block font-medium">Top Speed</label>
+                    <input className={inputCls} value={form.topSpeed} onChange={e => set('topSpeed', e.target.value)} placeholder="e.g. 303 km/h" />
+                  </div>
+                  <div>
+                    <label className="text-[#BDBDBD] text-xs mb-1 block font-medium">Engine / Displacement</label>
+                    <input className={inputCls} value={form.displacement} onChange={e => set('displacement', e.target.value)} placeholder="e.g. 999cc Inline-4" />
+                  </div>
+                  <div>
+                    <label className="text-[#BDBDBD] text-xs mb-1 block font-medium">Max Torque</label>
+                    <input className={inputCls} value={form.torque} onChange={e => set('torque', e.target.value)} placeholder="e.g. 113 Nm @ 11,000 RPM" />
+                  </div>
+                  <div>
+                    <label className="text-[#BDBDBD] text-xs mb-1 block font-medium">Kerb Weight</label>
+                    <input className={inputCls} value={form.weight} onChange={e => set('weight', e.target.value)} placeholder="e.g. 193 kg" />
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="col-span-2">
               <label className="text-[#BDBDBD] text-xs mb-1 block">Features (comma separated)</label>
               <input className={inputCls} value={Array.isArray(form.features) ? form.features.join(', ') : form.features} onChange={e => set('features', e.target.value)} placeholder="ABS, LED Lights, TFT Display" />

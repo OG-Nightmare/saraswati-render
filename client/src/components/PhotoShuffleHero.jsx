@@ -9,7 +9,9 @@ import heroKawasaki from '../assets/hero_kawasaki.png';
 import heroYamaha from '../assets/hero_yamaha.png';
 import heroAprilia from '../assets/hero_aprilia.png';
 import heroMvagusta from '../assets/hero_mvagusta.png';
+import api from '../lib/api';
 
+// ── Static fallback data (shown while loading or if no featured bikes exist) ──
 export const HERO_SUPERBIKES = [
   {
     id: 'ducati-v4s',
@@ -97,35 +99,136 @@ export const HERO_SUPERBIKES = [
   },
 ];
 
+// ── Brand accent colours (used when a real API vehicle doesn't specify one) ──
+const BRAND_COLORS = {
+  ducati: '#E11D48',
+  bmw: '#2563EB',
+  kawasaki: '#16A34A',
+  yamaha: '#0284C7',
+  aprilia: '#DC2626',
+  mv: '#D97706',
+  triumph: '#6D28D9',
+  harley: '#B45309',
+  honda: '#DC2626',
+  suzuki: '#F97316',
+  ktm: '#EA580C',
+};
+
+function getBrandColor(brand = '') {
+  const lower = brand.toLowerCase();
+  for (const [key, color] of Object.entries(BRAND_COLORS)) {
+    if (lower.includes(key)) return color;
+  }
+  return '#FF5500';
+}
+
+// ── Convert an API vehicle object to the hero display shape ──────────────────
+export function vehicleToHeroBike(v) {
+  const firstImg = v.images?.[0];
+  const imgUrl =
+    (firstImg && typeof firstImg === 'object' ? firstImg.url : firstImg) ||
+    'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80';
+
+  const formattedPrice = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(v.price || 0);
+
+  const displacement = v.displacement || v.fuelType || '';
+  const subtitle = [v.year, displacement].filter(Boolean).join(' • ');
+
+  const categoryTag =
+    v.category === 'superbike'
+      ? '👑 FLAGSHIP SUPERBIKE'
+      : v.subcategory === 'sports'
+      ? '🏁 TRACK EDITION'
+      : v.subcategory === 'cruiser'
+      ? '🛣️ TOURING ICON'
+      : v.subcategory === 'adventure'
+      ? '⛰️ ADVENTURE'
+      : '⚡ VERIFIED SUPERBIKE';
+
+  const formatWeight = (w) => {
+    if (!w) return '—';
+    const str = String(w).trim();
+    if (!str) return '—';
+    return str.toLowerCase().includes('kg') ? str : `${str} kg`;
+  };
+
+  return {
+    id: v._id,
+    _vehicleId: v._id,          // keep the real ID for linking to detail page
+    brand: v.brand || 'Unknown',
+    model: v.title || v.model || 'Superbike',
+    subtitle: subtitle || 'Premium Superbike',
+    tag: categoryTag,
+    power: v.power || '—',
+    acceleration: v.acceleration || '—',
+    topSpeed: v.topSpeed || '—',
+    price: formattedPrice,
+    image: imgUrl,
+    color: getBrandColor(v.brand),
+    specs: {
+      engine: displacement || '—',
+      torque: v.torque || '—',
+      weight: formatWeight(v.weight),
+    },
+  };
+}
+
 export default function PhotoShuffleHero() {
+  const [bikes, setBikes] = useState(HERO_SUPERBIKES);   // starts with fallback
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isAutoplay, setIsAutoplay] = useState(true);
   const [direction, setDirection] = useState(1);
   const timerRef = useRef(null);
 
-  const activeBike = HERO_SUPERBIKES[currentIdx];
+  // ── Fetch featured bikes from the API on mount ───────────────────────────
+  useEffect(() => {
+    api
+      .get('/vehicles?featured=true&limit=10&status=available')
+      .then((res) => {
+        const list = Array.isArray(res.data?.vehicles)
+          ? res.data.vehicles
+          : Array.isArray(res.data)
+          ? res.data
+          : [];
+        if (list.length > 0) {
+          setBikes(list.map(vehicleToHeroBike));
+          setCurrentIdx(0);
+        }
+        // If list is empty, the static fallback already in state is kept
+      })
+      .catch(() => {
+        // Network / auth error — silently keep the static fallback
+      });
+  }, []);
+
+  const activeBike = bikes[currentIdx] || bikes[0];
+
 
   // Auto-shuffle effect
   useEffect(() => {
     if (!isAutoplay) return;
     timerRef.current = setInterval(() => {
       setDirection(1);
-      setCurrentIdx((prev) => (prev + 1) % HERO_SUPERBIKES.length);
+      setCurrentIdx((prev) => (prev + 1) % bikes.length);
     }, 5500);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isAutoplay]);
+  }, [isAutoplay, bikes.length]);
 
   const handleNext = () => {
     setDirection(1);
-    setCurrentIdx((prev) => (prev + 1) % HERO_SUPERBIKES.length);
+    setCurrentIdx((prev) => (prev + 1) % bikes.length);
   };
 
   const handlePrev = () => {
     setDirection(-1);
-    setCurrentIdx((prev) => (prev - 1 + HERO_SUPERBIKES.length) % HERO_SUPERBIKES.length);
+    setCurrentIdx((prev) => (prev - 1 + bikes.length) % bikes.length);
   };
 
   const handleSelect = (index) => {
@@ -343,7 +446,7 @@ export default function PhotoShuffleHero() {
           <div className="flex items-center justify-between mb-3 px-1">
             <div className="flex items-center gap-2">
               <span className="text-xs font-black uppercase tracking-wider text-[#0F172A]">
-                SELECT PHOTO SHUFFLE ({currentIdx + 1}/{HERO_SUPERBIKES.length})
+                SELECT PHOTO SHUFFLE ({currentIdx + 1}/{bikes.length})
               </span>
               <span className="text-[11px] text-[#64748B]">Click any bike to switch photo</span>
             </div>
@@ -365,9 +468,9 @@ export default function PhotoShuffleHero() {
             </button>
           </div>
 
-          {/* 6 Thumbnail Pills */}
+          {/* Thumbnail Pills */}
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5">
-            {HERO_SUPERBIKES.map((bike, idx) => {
+            {bikes.map((bike, idx) => {
               const isActive = idx === currentIdx;
               return (
                 <button

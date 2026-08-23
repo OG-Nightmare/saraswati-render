@@ -23,6 +23,7 @@ import ScrollIntroHero from '../components/ScrollIntroHero';
 import PhotoShuffleHero from '../components/PhotoShuffleHero';
 import SuperbikeShowcase from '../components/SuperbikeShowcase';
 import VehicleCard from '../components/VehicleCard';
+import FeaturedReels from '../components/FeaturedReels';
 import api from '../lib/api';
 
 // ── Superbike Manufacturers Marquee ──────────────────────────────────────
@@ -127,9 +128,8 @@ function TestimonialsSection({ testimonials }) {
           <button
             key={i}
             onClick={() => setIdx(i)}
-            className={`h-2.5 rounded-full transition-all duration-300 ${
-              i === idx ? 'bg-[#FF5500] w-8' : 'bg-[#E2E8F0] w-2.5'
-            }`}
+            className={`h-2.5 rounded-full transition-all duration-300 ${i === idx ? 'bg-[#FF5500] w-8' : 'bg-[#E2E8F0] w-2.5'
+              }`}
           />
         ))}
       </div>
@@ -151,8 +151,8 @@ export default function HomePage() {
         const list = Array.isArray(featRes.value.data?.vehicles)
           ? featRes.value.data.vehicles
           : Array.isArray(featRes.value.data)
-          ? featRes.value.data
-          : [];
+            ? featRes.value.data
+            : [];
         setFeatured(list);
       } else {
         setFeatured([]);
@@ -168,14 +168,14 @@ export default function HomePage() {
     activeCategory === 'all'
       ? featured || []
       : (featured || []).filter((v) =>
-          activeCategory === 'superbike'
-            ? v.category === 'superbike'
-            : v.subcategory === activeCategory
-        );
+        activeCategory === 'superbike'
+          ? v.category === 'superbike'
+          : v.subcategory === activeCategory
+      );
 
   return (
     <div className="bg-[#FAFAFC] min-h-screen">
-      
+
       {/* ── 0. Dark Scroll-Driven Intro Hero ────────────────────────────── */}
       <ScrollIntroHero />
 
@@ -195,14 +195,12 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── 3. Superbike Showcase Studio (Interactive Specs) ──────────── */}
-      <SuperbikeShowcase />
 
-      {/* ── 4. Featured Superbike Collection Grid ─────────────────────── */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6">
-        
+      {/* ── 4. Featured Superbike Reels (Full-Width Alternating 5-Reel Showcase) ── */}
+      <section className="py-16 md:py-20 max-w-7xl mx-auto px-4 sm:px-6">
+
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#FF5500] mb-2">
               <Sparkles size={16} /> Verified Gallery Showcase
@@ -211,60 +209,18 @@ export default function HomePage() {
               className="text-3xl sm:text-5xl font-black text-[#0F172A] tracking-tight"
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
-              Featured <span className="text-gradient-orange">Superbike Fleet</span>
+              Featured <span className="text-gradient-orange">Reels</span>
             </h2>
           </div>
-
-          {/* Category Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            {[
-              { id: 'all', label: '⚡ All Superbikes' },
-              { id: 'superbike', label: '👑 1000cc+ Hyperbikes' },
-              { id: 'sports', label: '🏁 Track Editions' },
-              { id: 'cruiser', label: '🛣️ Cruisers & Tourers' },
-            ].map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all whitespace-nowrap ${
-                  activeCategory === cat.id
-                    ? 'bg-[#FF5500] text-white shadow-lg shadow-orange-500/25'
-                    : 'bg-white border border-[#E2E8F0] text-[#475569] hover:bg-[#F8FAFC]'
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
+          <p className="text-sm text-[#64748B] max-w-md">
+            Watch raw exhaust notes, dyno runs, and walkarounds of our verified superbike fleet.
+          </p>
         </div>
 
-        {/* Bike Cards Grid */}
-        {featured === null ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-80 bg-slate-200 animate-pulse rounded-3xl" />
-            ))}
-          </div>
-        ) : filteredVehicles.length === 0 ? (
-          <div className="text-center py-16 bg-white rounded-3xl border border-[#E2E8F0] p-8">
-            <p className="text-lg font-bold text-[#0F172A]">No superbikes found in this category right now.</p>
-            <p className="text-sm text-[#64748B] mt-1 mb-6">Explore our full inventory or contact our concierge.</p>
-            <Link
-              to="/inventory"
-              className="inline-flex items-center gap-2 bg-[#FF5500] text-white font-bold px-6 py-3 rounded-xl"
-            >
-              Browse Full Inventory <ArrowRight size={16} />
-            </Link>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredVehicles.map((vehicle, idx) => (
-              <VehicleCard key={vehicle._id || idx} vehicle={vehicle} index={idx} />
-            ))}
-          </div>
-        )}
+        {/* Full-Width 5-Reel Alternating Showcase */}
+        <FeaturedReels />
 
-        <div className="mt-12 text-center">
+        <div className="mt-8 md:mt-12 text-center">
           <Link
             to="/inventory"
             className="inline-flex items-center gap-2 bg-[#0F172A] hover:bg-slate-800 text-white font-extrabold uppercase tracking-wider text-xs px-8 py-4 rounded-2xl shadow-xl transition-all hover:scale-[1.02]"
