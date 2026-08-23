@@ -1,4 +1,4 @@
-﻿import { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 // =============================================================================
@@ -11,11 +11,11 @@ import { motion } from "framer-motion";
 //   /reels/reel-2.mp4   …etc.
 // =============================================================================
 const HOMEPAGE_REELS = [
-  { id: 1, src: "/reels/reel-1.mp4", title: "Ducati Panigale V4 S" },
-  { id: 2, src: "/reels/reel-2.mp4", title: "BMW S1000RR M Package" },
-  { id: 3, src: "/reels/reel-3.mp4", title: "Kawasaki Ninja ZX-10R" },
-  { id: 4, src: "/reels/reel-4.mp4", title: "Aprilia RSV4 Factory" },
-  { id: 5, src: "/reels/reel-5.mp4", title: "Yamaha YZF-R1M" },
+  { id: 1, src: "/reels/Video-18758.mp4", title: "Ducati Panigale V4 S" },
+  { id: 2, src: "/reels/Video-33235.mp4", title: "BMW S1000RR M Package" },
+  { id: 3, src: "/reels/Video-34963.mp4", title: "Kawasaki Ninja ZX-10R" },
+  { id: 4, src: "/reels/Video-60438.mp4", title: "Aprilia RSV4 Factory" },
+  { id: 5, src: "/reels/Video-70365.mp4", title: "Yamaha YZF-R1M" },
 ];
 // =============================================================================
 
