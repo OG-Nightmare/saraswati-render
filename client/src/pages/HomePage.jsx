@@ -197,33 +197,30 @@ export default function HomePage() {
 
 
       {/* ── 4. Featured Superbike Reels (Full-Width Alternating 5-Reel Showcase) ── */}
-      <section className="py-16 md:py-20 max-w-7xl mx-auto px-4 sm:px-6">
+      <section className="py-20 sm:py-24 md:py-28 max-w-[1750px] mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
 
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6 border-b border-[#E2E8F0]/60 pb-8">
           <div>
-            <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#FF5500] mb-2">
+            <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#FF5500] mb-3">
               <Sparkles size={16} /> Verified Gallery Showcase
             </div>
             <h2
-              className="text-3xl sm:text-5xl font-black text-[#0F172A] tracking-tight"
+              className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#0F172A] tracking-tight"
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               Featured <span className="text-gradient-orange">Reels</span>
             </h2>
           </div>
-          <p className="text-sm text-[#64748B] max-w-md">
-            Watch raw exhaust notes, dyno runs, and walkarounds of our verified superbike fleet.
-          </p>
         </div>
 
         {/* Full-Width 5-Reel Alternating Showcase */}
         <FeaturedReels />
 
-        <div className="mt-8 md:mt-12 text-center">
+        <div className="mt-16 md:mt-24 text-center">
           <Link
             to="/inventory"
-            className="inline-flex items-center gap-2 bg-[#0F172A] hover:bg-slate-800 text-white font-extrabold uppercase tracking-wider text-xs px-8 py-4 rounded-2xl shadow-xl transition-all hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 bg-[#0F172A] hover:bg-slate-800 text-white font-extrabold uppercase tracking-wider text-xs px-9 py-4.5 rounded-2xl shadow-xl hover:shadow-2xl transition-all hover:scale-[1.03]"
           >
             Explore Complete Superbike Fleet <ArrowRight size={16} className="text-[#FF5500]" />
           </Link>
