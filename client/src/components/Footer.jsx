@@ -53,8 +53,8 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-[#FF5500] mt-0.5 flex-shrink-0" />
                 <span className="text-slate-300 text-xs leading-relaxed">
-                  1735/55, Pocket 29, Naiwala,<br />
-                  Karol Bagh, New Delhi — 110005
+                  T-2531 , Faiz Road,<br />
+                  Karol Bagh , New Delhi 110005
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export default function Footer() {
             <div className="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-2 text-xs">
               <div className="flex items-center justify-between text-slate-300">
                 <span>Mon – Sat:</span>
-                <span className="font-bold text-white">9:30 AM – 7:30 PM</span>
+                <span className="font-bold text-white">11:30 AM – 8:30 PM</span>
               </div>
               <div className="flex items-center justify-between text-slate-300">
                 <span>Sun:</span>
