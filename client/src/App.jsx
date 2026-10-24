@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
@@ -8,15 +8,32 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import BikeLoader from './components/BikeLoader';
-import HomePage from './pages/HomePage';
-import InventoryPage from './pages/InventoryPage';
-import VehicleDetailPage from './pages/VehicleDetailPage';
-import AboutPage from './pages/AboutPage';
-import ServicesPage from './pages/ServicesPage';
-import ContactPage from './pages/ContactPage';
-import SellBikePage from './pages/SellBikePage';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
+
+// Lazy-loaded pages for lightning-fast performance & optimized bundle size
+const HomePage = lazy(() => import('./pages/HomePage'));
+const InventoryPage = lazy(() => import('./pages/InventoryPage'));
+const VehicleDetailPage = lazy(() => import('./pages/VehicleDetailPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const SellBikePage = lazy(() => import('./pages/SellBikePage'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+
+// Modern, sleek loading fallback
+function PageLoadingFallback() {
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center py-20 bg-[#FAFAFC]">
+      <div className="relative w-12 h-12">
+        <div className="absolute inset-0 rounded-full border-2 border-[#FF5500]/20 animate-ping" />
+        <div className="w-12 h-12 rounded-full border-2 border-transparent border-t-[#FF5500] border-r-[#FF5500] animate-spin" />
+      </div>
+      <p className="text-xs font-mono tracking-widest text-[#94A3B8] uppercase mt-4">
+        Saraswati Superbikes
+      </p>
+    </div>
+  );
+}
 
 function Layout({ children }) {
   return (
@@ -42,7 +59,7 @@ export default function App() {
     try {
       sessionStorage.setItem('sm_loaded', 'true');
     } catch {
-      // ignore quota / storage errors
+      // ignore storage errors
     }
     setAppReady(true);
   };
@@ -69,23 +86,32 @@ export default function App() {
               <Toaster
                 position="top-right"
                 toastOptions={{
-                  style: { background: '#ffffff', color: '#1C1C1E', border: '1px solid #E5E4E0', borderRadius: '12px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)' },
+                  style: {
+                    background: '#12141C',
+                    color: '#FFFFFF',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: '12px',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                    fontSize: '13px',
+                  },
                 }}
               />
-              <Routes>
-                {/* Public pages with layout */}
-                <Route path="/" element={<Layout><HomePage /></Layout>} />
-                <Route path="/inventory" element={<Layout><InventoryPage /></Layout>} />
-                <Route path="/inventory/:id" element={<Layout><VehicleDetailPage /></Layout>} />
-                <Route path="/about" element={<Layout><AboutPage /></Layout>} />
-                <Route path="/services" element={<Layout><ServicesPage /></Layout>} />
-                <Route path="/contact" element={<Layout><ContactPage /></Layout>} />
-                <Route path="/sell" element={<Layout><SellBikePage /></Layout>} />
+              <Suspense fallback={<PageLoadingFallback />}>
+                <Routes>
+                  {/* Public pages with layout */}
+                  <Route path="/" element={<Layout><HomePage /></Layout>} />
+                  <Route path="/inventory" element={<Layout><InventoryPage /></Layout>} />
+                  <Route path="/inventory/:id" element={<Layout><VehicleDetailPage /></Layout>} />
+                  <Route path="/about" element={<Layout><AboutPage /></Layout>} />
+                  <Route path="/services" element={<Layout><ServicesPage /></Layout>} />
+                  <Route path="/contact" element={<Layout><ContactPage /></Layout>} />
+                  <Route path="/sell" element={<Layout><SellBikePage /></Layout>} />
 
-                {/* Admin (no layout) */}
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-              </Routes>
+                  {/* Admin (no layout) */}
+                  <Route path="/admin/login" element={<AdminLogin />} />
+                  <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+                </Routes>
+              </Suspense>
             </BrowserRouter>
           </motion.div>
         )}

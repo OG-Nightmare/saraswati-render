@@ -14,15 +14,19 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@hono/node-server": "^1.13.7",
+    "@hono/node-server": "^1.19.17",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
     "dotenv": "^17.4.2",
-    "hono": "^4.7.11",
+    "hono": "^4.13.13",
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^6.3.0"
   },
   "devDependencies": {
     "mongodb-memory-server": "^10.4.3"
+  },
+  "overrides": {
+    "follow-redirects": "^1.16.1",
+    "proxy-addr": "^2.0.8"
   }
 }

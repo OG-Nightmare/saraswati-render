@@ -1,7 +1,11 @@
 import 'dotenv/config';
 import bcryptPkg from 'bcryptjs';
-const { hash } = bcryptPkg;
+const { hash, compare } = bcryptPkg;
 import { connectDB, getDB } from './config/db.js';
+
+const DEFAULT_ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
+const DEFAULT_ADMIN_PASSWORD = process.env.ADMIN_DEFAULT_PASSWORD || 'admin@123$';
+const ADMIN_PHONE = process.env.ADMIN_PHONE || '+91 98117 98761';
 
 async function seed(shouldConnect = false) {
   if (shouldConnect) {
@@ -13,18 +17,37 @@ async function seed(shouldConnect = false) {
 
   // ── Seed admin ─────────────────────────────────────────────────────────────
   const admins = db.collection('admins');
-  const existingAdmin = await admins.findOne({ username: 'admin' });
+  const existingAdmin = await admins.findOne({ username: DEFAULT_ADMIN_USERNAME });
+
   if (!existingAdmin) {
-    const hashedPassword = await hash('admin@123', 12);
+    const hashedPassword = await hash(DEFAULT_ADMIN_PASSWORD, 12);
     await admins.insertOne({
-      username: 'admin',
+      username: DEFAULT_ADMIN_USERNAME,
       password: hashedPassword,
+      phone: ADMIN_PHONE,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    console.log('[Seed] ✅ Admin created — username: admin | password: admin@123');
+    console.log(`[Seed] ✅ Admin created — username: ${DEFAULT_ADMIN_USERNAME} | password: ${DEFAULT_ADMIN_PASSWORD}`);
   } else {
-    console.log('[Seed] ℹ️  Admin already exists, skipping');
+    // If admin exists with older default password 'admin@123', upgrade to 'admin@123$'
+    const isOldDefault = await compare('admin@123', existingAdmin.password).catch(() => false);
+    if (isOldDefault) {
+      const hashedPassword = await hash(DEFAULT_ADMIN_PASSWORD, 12);
+      await admins.updateOne(
+        { _id: existingAdmin._id },
+        {
+          $set: {
+            password: hashedPassword,
+            phone: ADMIN_PHONE,
+            updatedAt: new Date(),
+          },
+        }
+      );
+      console.log(`[Seed] 🔄 Upgraded admin password to new default: ${DEFAULT_ADMIN_PASSWORD}`);
+    } else {
+      console.log('[Seed] ℹ️  Admin already configured in database');
+    }
   }
 }
 

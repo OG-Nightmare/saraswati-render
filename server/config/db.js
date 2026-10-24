@@ -74,9 +74,24 @@ export const connectDB = async () => {
     }
   }
 
-  const rawUri = process.env.MONGODB_URI;
-  if (!rawUri) throw new Error('MONGODB_URI environment variable is not defined');
+  let rawUri = process.env.MONGODB_URI;
+  if (!rawUri) {
+    if (process.env.NODE_ENV !== 'production') {
+      try {
+        const { MongoMemoryServer } = await import('mongodb-memory-server');
+        const mongoServer = await MongoMemoryServer.create();
+        rawUri = mongoServer.getUri() + 'saraswati';
+        process.env.MONGODB_URI = rawUri;
+        console.log('[DB] Auto-started in-memory MongoDB for development at:', rawUri);
+      } catch (err) {
+        throw new Error('MONGODB_URI environment variable is not defined and in-memory fallback could not start: ' + err.message);
+      }
+    } else {
+      throw new Error('MONGODB_URI environment variable is not defined');
+    }
+  }
   const uri = fixMongoUri(rawUri);
+
 
   connectionPromise = (async () => {
     try {

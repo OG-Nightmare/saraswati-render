@@ -8,12 +8,26 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
+    port: 5173,
     proxy: {
       '/api': {
-        target: 'https://saraswati-final.parikshitkapoor2.workers.dev',
+        target: 'http://localhost:5000',
         changeOrigin: true,
-        secure: true,
+        secure: false,
+      },
+    },
+  },
+  build: {
+    chunkSizeWarningLimit: 900,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-ui': ['framer-motion', 'lucide-react', 'react-hot-toast'],
+          'vendor-net': ['axios'],
+        },
       },
     },
   },
 })
+
