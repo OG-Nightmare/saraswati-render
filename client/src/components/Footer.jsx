@@ -131,8 +131,12 @@ export default function Footer() {
       {/* Bottom Copyright Strip */}
       <div className="border-t border-slate-800 bg-[#090D16]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-slate-500 text-xs">
-            © {new Date().getFullYear()} Saraswati Superbikes. All rights reserved. • Karol Bagh, New Delhi
+          <p className="text-slate-500 text-xs flex flex-wrap items-center gap-2">
+            <span>© {new Date().getFullYear()} Saraswati Superbikes. All rights reserved. • Karol Bagh, New Delhi</span>
+            <span>•</span>
+            <Link to="/admin/login" className="text-slate-400 hover:text-[#FF5500] transition-colors font-medium">
+              Admin Portal
+            </Link>
           </p>
           <button
             onClick={scrollToTop}
@@ -142,6 +146,7 @@ export default function Footer() {
             <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform text-[#FF5500]" />
           </button>
         </div>
+
       </div>
     </footer>
   );

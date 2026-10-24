@@ -21,7 +21,17 @@
   --font-display: 'Outfit', system-ui, sans-serif;
   --font-mono-custom: 'Space Grotesk', monospace;
   --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Stitch MCP - Apex Corse Technical Dark Luxury Tokens */
+  --color-apex-base: #090A0F;
+  --color-apex-surface: #12141C;
+  --color-apex-card: #181B26;
+  --color-apex-elevated: #1F2330;
+  --color-apex-orange: #F97316;
+  --color-apex-amber: #FB923C;
+  --color-apex-blue: #38BDF8;
 }
+
 
 @layer base {
   * {
@@ -142,3 +152,19 @@
 .glow-gold {
   box-shadow: 0 10px 30px -10px rgba(217, 119, 6, 0.35);
 }
+
+/* Stitch MCP Apex Corse Luxury Technical Utilities */
+.card-apex {
+  background: #12141C;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5);
+}
+
+.glow-apex {
+  box-shadow: 0 0 25px -4px rgba(249, 115, 22, 0.25);
+}
+
+.border-apex-tactical {
+  border-color: rgba(249, 115, 22, 0.3);
+}
+

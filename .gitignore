@@ -1,9 +1,20 @@
 node_modules/
+**/node_modules/
 dist/
+**/dist/
 uploads/
 *.log
 .DS_Store
 *.timestamp*
-server/.env
-server/server/.env
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+.wrangler/
+**/.wrangler/
+*.exe
+
+
 
