@@ -50,6 +50,12 @@ function Layout({ children }) {
 export default function App() {
   const [appReady, setAppReady] = useState(() => {
     try {
+      if (typeof navigator !== 'undefined') {
+        const ua = navigator.userAgent || '';
+        if (/bot|googlebot|crawler|spider|robot|crawling/i.test(ua)) {
+          return true;
+        }
+      }
       return sessionStorage.getItem('sm_loaded') === 'true';
     } catch {
       return false;
@@ -67,57 +73,54 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <AnimatePresence mode="wait">
-        {!appReady ? (
-          <motion.div
-            key="loader"
-            exit={{ opacity: 0, filter: 'blur(4px)' }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-          >
-            <BikeLoader onComplete={handleLoaderComplete} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="app-main"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
-          >
-            <BrowserRouter>
-              <Analytics />
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  style: {
-                    background: '#12141C',
-                    color: '#FFFFFF',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '12px',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-                    fontSize: '13px',
-                  },
-                }}
-              />
-              <Suspense fallback={<PageLoadingFallback />}>
-                <Routes>
-                  {/* Public pages with layout */}
-                  <Route path="/" element={<Layout><HomePage /></Layout>} />
-                  <Route path="/inventory" element={<Layout><InventoryPage /></Layout>} />
-                  <Route path="/inventory/:id" element={<Layout><VehicleDetailPage /></Layout>} />
-                  <Route path="/about" element={<Layout><AboutPage /></Layout>} />
-                  <Route path="/services" element={<Layout><ServicesPage /></Layout>} />
-                  <Route path="/contact" element={<Layout><ContactPage /></Layout>} />
-                  <Route path="/sell" element={<Layout><SellBikePage /></Layout>} />
+      <BrowserRouter>
+        <Analytics />
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: '#12141C',
+              color: '#FFFFFF',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '12px',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              fontSize: '13px',
+            },
+          }}
+        />
 
-                  {/* Admin (no layout) */}
-                  <Route path="/admin/login" element={<AdminLogin />} />
-                  <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-                </Routes>
-              </Suspense>
-            </BrowserRouter>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Non-blocking loader overlay for human visitors; page DOM renders immediately underneath for SEO */}
+        <AnimatePresence>
+          {!appReady && (
+            <motion.div
+              key="app-loader"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0, filter: 'blur(4px)' }}
+              transition={{ duration: 0.35, ease: 'easeInOut' }}
+              className="fixed inset-0 z-[9999] bg-[#07090E] pointer-events-auto"
+            >
+              <BikeLoader onComplete={handleLoaderComplete} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <Suspense fallback={<PageLoadingFallback />}>
+          <Routes>
+            {/* Public pages with layout */}
+            <Route path="/" element={<Layout><HomePage /></Layout>} />
+            <Route path="/inventory" element={<Layout><InventoryPage /></Layout>} />
+            <Route path="/inventory/:id" element={<Layout><VehicleDetailPage /></Layout>} />
+            <Route path="/about" element={<Layout><AboutPage /></Layout>} />
+            <Route path="/services" element={<Layout><ServicesPage /></Layout>} />
+            <Route path="/contact" element={<Layout><ContactPage /></Layout>} />
+            <Route path="/sell" element={<Layout><SellBikePage /></Layout>} />
+
+            {/* Admin (no layout) */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
     </AuthProvider>
   );
 }

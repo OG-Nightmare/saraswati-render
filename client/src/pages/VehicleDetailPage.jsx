@@ -54,7 +54,8 @@ export default function VehicleDetailPage() {
     '@type': 'Product',
     name: `${vehicle.year} ${vehicle.title}`,
     description: vehicle.description || `Pre-owned ${vehicle.title} in Delhi Karol Bagh. ${vehicle.kilometers?.toLocaleString()} km, ${vehicle.ownership} owner, dyno tested with verified RC transfer.`,
-    image: images[0],
+    image: images[0] || 'https://saraswatimotors.in/s_logo_metallic.png',
+    url: `https://saraswatimotors.in/inventory/${id}`,
     brand: {
       '@type': 'Brand',
       name: vehicle.brand || 'Superbike'
@@ -63,11 +64,14 @@ export default function VehicleDetailPage() {
       '@type': 'Offer',
       priceCurrency: 'INR',
       price: vehicle.price,
+      itemCondition: 'https://schema.org/UsedCondition',
       availability: vehicle.status === 'sold' ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+      url: `https://saraswatimotors.in/inventory/${id}`,
       seller: {
         '@type': 'MotorcycleDealer',
         name: 'Saraswati Superbikes',
-        telephone: '+919811798761'
+        telephone: '+919811798761',
+        url: 'https://saraswatimotors.in/'
       }
     }
   } : null;

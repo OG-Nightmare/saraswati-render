@@ -188,16 +188,19 @@ export default function ServicesPage() {
       '@type': 'Country',
       name: 'India',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '184',
-    },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Best & Most Reliable Superbike Services in Delhi',
-      itemListElement: PREMIUM_SERVICES.map((s, idx) => ({
+      itemListElement: PREMIUM_SERVICES.map((s) => ({
         '@type': 'Offer',
+        priceCurrency: 'INR',
+        price: '0',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '0',
+          priceCurrency: 'INR',
+          name: 'Transparent Consultation & Booking',
+        },
         itemOffered: {
           '@type': 'Service',
           name: s.title,

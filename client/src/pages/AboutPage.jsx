@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Shield, Eye, Heart, TrendingUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Shield, Eye, Heart, TrendingUp, ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
 
 function AnimCounter({ target, suffix = '' }) {
@@ -36,16 +37,26 @@ export default function AboutPage() {
     '@type': 'AboutPage',
     name: 'About Saraswati Superbikes - Delhi’s Premier Motorcycle Gallery',
     description: 'Learn about Saraswati Superbikes, Delhi NCR’s best and most reliable showroom for verified pre-owned luxury superbikes and sports motorcycles.',
+    url: 'https://saraswatimotors.in/about',
     mainEntity: {
       '@type': 'MotorcycleDealer',
       name: 'Saraswati Superbikes',
-      address: 'T-2531, Faiz Road, Karol Bagh, New Delhi 110005',
+      url: 'https://saraswatimotors.in/',
+      image: 'https://saraswatimotors.in/s_logo_metallic.png',
       telephone: '+919811798761',
       priceRange: '₹₹₹₹',
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: '184',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'T-2531, Faiz Road',
+        addressLocality: 'Karol Bagh',
+        addressRegion: 'New Delhi',
+        postalCode: '110005',
+        addressCountry: 'IN',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 28.6507,
+        longitude: 77.1983,
       },
     },
   };
@@ -104,7 +115,7 @@ export default function AboutPage() {
             <div className="aspect-video rounded-2xl overflow-hidden shadow-md">
               <img
                 src="https://images.unsplash.com/photo-1580310614729-ccd69652491d?auto=format&fit=crop&w=1200&q=80"
-                alt="Our showroom"
+                alt="Saraswati Superbikes Showroom on Faiz Road, Karol Bagh New Delhi"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -187,6 +198,36 @@ export default function AboutPage() {
                 <p className="text-[#6B6965] text-xs leading-relaxed">{v.desc}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+
+        {/* Internal Navigation CTA */}
+        <div className="mt-20 bg-gradient-to-br from-[#12141C] to-[#0A0C10] rounded-3xl p-8 sm:p-12 text-center text-white border border-slate-800 shadow-xl">
+          <h2 className="text-2xl sm:text-4xl font-black mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            Experience Delhi’s Landmark Superbike Gallery
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto mb-8">
+            Whether you are looking to purchase your dream 1000cc+ machine, explore our dyno inspection services, or visit our Karol Bagh showroom, we're here to help.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              to="/inventory"
+              className="inline-flex items-center gap-2 bg-[#FF5500] hover:bg-[#EA4C00] text-white font-extrabold px-6 py-3.5 rounded-xl transition-all shadow-lg shadow-orange-500/25 text-sm uppercase tracking-wider"
+            >
+              Browse Fleet <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3.5 rounded-xl transition-all text-sm uppercase tracking-wider border border-white/15"
+            >
+              VIP Services
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3.5 rounded-xl transition-all text-sm uppercase tracking-wider border border-white/15"
+            >
+              Visit Showroom
+            </Link>
           </div>
         </div>
       </div>

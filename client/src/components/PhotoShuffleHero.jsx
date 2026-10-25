@@ -297,12 +297,12 @@ export default function PhotoShuffleHero() {
 
               {/* Title & Headline */}
               <div>
-                <h1
+                <h2
                   className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.02] text-[#0F172A]"
                   style={{ fontFamily: 'Outfit, sans-serif' }}
                 >
                   {activeBike.model}
-                </h1>
+                </h2>
                 <p className="text-sm font-semibold tracking-wide text-[#64748B] mt-2 flex items-center gap-2">
                   <Sparkles size={15} className="text-[#D97706]" />
                   {activeBike.subtitle}

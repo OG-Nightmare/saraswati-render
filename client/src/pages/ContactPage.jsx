@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Phone, MessageCircle, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Clock, Send, CheckCircle, ArrowRight } from 'lucide-react';
 import api from '../lib/api';
 import toast from 'react-hot-toast';
 import SEO from '../components/SEO';
@@ -40,10 +40,15 @@ export default function ContactPage() {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
     name: 'Contact Saraswati Superbikes Karol Bagh Delhi',
+    description: 'Visit Delhi NCR’s premier superbike showroom at T-2531 Faiz Road, Karol Bagh. Contact us for test rides, dyno inspection & pre-owned luxury motorcycle sales.',
+    url: 'https://saraswatimotors.in/contact',
     mainEntity: {
       '@type': 'MotorcycleDealer',
       name: 'Saraswati Superbikes',
+      url: 'https://saraswatimotors.in/',
+      image: 'https://saraswatimotors.in/s_logo_metallic.png',
       telephone: '+919811798761',
+      priceRange: '₹₹₹₹',
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'T-2531, Faiz Road',
@@ -57,6 +62,14 @@ export default function ContactPage() {
         latitude: 28.6507,
         longitude: 77.1983,
       },
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          opens: '11:30',
+          closes: '20:30',
+        },
+      ],
     },
   };
 
@@ -73,9 +86,11 @@ export default function ContactPage() {
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-14">
           <span className="text-[#F97316] text-sm font-bold uppercase tracking-widest mb-3 block">Get In Touch</span>
-          <h1 className="text-4xl md:text-5xl font-black text-[#1C1C1E] mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>Contact Us</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-[#1C1C1E] mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            Contact Saraswati Superbikes <span className="text-[#F97316]">Delhi</span>
+          </h1>
           <p className="text-[#6B6965] max-w-lg mx-auto">
-            Have a question? Want to schedule a test ride? We're here to help.
+            Have a question about our inventory? Want to schedule a private test ride or sell your machine? We're here to assist.
           </p>
         </motion.div>
 
@@ -153,8 +168,8 @@ export default function ContactPage() {
                   <Clock size={18} className="text-[#F97316]" />
                 </div>
                 <div>
-                  <p className="text-[#1C1C1E] font-semibold mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>Working Hours</p>
-                  <p className="text-[#6B6965] text-sm">Mon–Sat: 9:00 AM – 7:00 PM<br />Sun: 10:00 AM – 4:00 PM</p>
+                  <p className="text-[#1C1C1E] font-semibold mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>Showroom Hours</p>
+                  <p className="text-[#6B6965] text-sm">Mon–Sat: 11:30 AM – 8:30 PM<br />Sun: By Appointment</p>
                 </div>
               </div>
             </div>
@@ -174,12 +189,30 @@ export default function ContactPage() {
             {/* Google Maps Embed */}
             <div className="rounded-2xl overflow-hidden border border-[#E5E4E0] h-56 shadow-sm">
               <iframe
-                src="https://maps.google.com/maps?q=Naiwala+Karol+Bagh+New+Delhi&output=embed"
+                src="https://maps.google.com/maps?q=T-2531+Faiz+Road+Karol+Bagh+New+Delhi+110005&output=embed"
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
-                title="Saraswati Motors Location"
+                title="Saraswati Superbikes Karol Bagh Showroom Location"
               />
             </div>
           </motion.div>
+        </div>
+
+        {/* Contextual Internal Navigation Links */}
+        <div className="mt-14 pt-8 border-t border-[#E5E4E0] flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div className="text-[#6B6965]">
+            Looking for something specific?
+          </div>
+          <div className="flex flex-wrap gap-4 font-bold">
+            <Link to="/inventory" className="text-[#1C1C1E] hover:text-[#F97316] transition-colors flex items-center gap-1">
+              Browse Pre-Owned Superbikes <ArrowRight size={13} />
+            </Link>
+            <Link to="/services" className="text-[#1C1C1E] hover:text-[#F97316] transition-colors flex items-center gap-1">
+              Superbike Dyno & RC Transfer Services <ArrowRight size={13} />
+            </Link>
+            <Link to="/sell" className="text-[#1C1C1E] hover:text-[#F97316] transition-colors flex items-center gap-1">
+              Sell or Trade-In Your Bike <ArrowRight size={13} />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
