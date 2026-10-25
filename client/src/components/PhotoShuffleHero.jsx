@@ -237,7 +237,7 @@ export default function PhotoShuffleHero() {
   };
 
   return (
-    <section className="relative min-h-[92vh] pt-28 pb-12 flex flex-col justify-between overflow-hidden bg-gradient-to-b from-[#FAF5F0] via-[#FAFAFC] to-[#F3F4F6]">
+    <section id="featured-showcase" className="relative min-h-[92vh] pt-28 pb-12 flex flex-col justify-between overflow-hidden bg-gradient-to-b from-[#FAF5F0] via-[#FAFAFC] to-[#F3F4F6]">
       {/* Dynamic Background Glow ambient spotlight based on active bike brand color */}
       <div
         className="absolute -top-40 right-0 w-[650px] h-[650px] rounded-full blur-[140px] opacity-20 pointer-events-none transition-all duration-1000 ease-out"

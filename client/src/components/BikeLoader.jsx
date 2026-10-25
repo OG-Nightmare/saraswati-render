@@ -203,19 +203,24 @@ export default function BikeLoader({
         {speedometerDial}
       </div>
 
-      {/* Branding Logo: Orange box with Outfit "S" + "Saraswati Motors" */}
-      <div className="flex items-center gap-3 mt-4">
-        <div className="w-9 h-9 bg-[#F97316] rounded-xl flex items-center justify-center font-bold text-white text-lg font-outfit shadow-md">
-          S
+      {/* Branding Logo: SUPERBIKES by SARASWATI MOTORS */}
+      <div className="flex flex-col items-center justify-center mt-4">
+        <div className="flex items-center tracking-tight leading-none">
+          <span className="text-white text-xl font-black italic tracking-wide" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            SUPER
+          </span>
+          <span className="text-[#FF5500] text-xl font-black italic tracking-wide" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            BIKES
+          </span>
         </div>
-        <span
-          className={`text-lg font-black tracking-tight ${
-            dark ? 'text-white' : 'text-[#1C1C1E]'
-          }`}
-          style={{ fontFamily: 'Outfit, sans-serif' }}
-        >
-          Saraswati Motors
-        </span>
+        <div className="flex items-center gap-1 mt-0.5">
+          <span className="text-slate-400 italic text-sm" style={{ fontFamily: "'Alex Brush', 'Dancing Script', cursive" }}>
+            by
+          </span>
+          <span className="text-slate-300 text-[10px] font-black tracking-[0.2em] uppercase" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+            SARASWATI MOTORS
+          </span>
+        </div>
       </div>
 
       {/* Dynamic Status Text */}

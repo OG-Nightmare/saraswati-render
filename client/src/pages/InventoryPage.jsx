@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 import VehicleCard from '../components/VehicleCard';
+import SEO from '../components/SEO';
 import api from '../lib/api';
 
 const BRANDS = ['All', 'Yamaha', 'KTM', 'Kawasaki', 'Honda', 'Royal Enfield', 'TVS', 'Bajaj', 'Suzuki', 'BMW', 'Ducati', 'Triumph', 'Harley-Davidson', 'Aprilia'];
@@ -157,8 +158,24 @@ export default function InventoryPage() {
     filters.search
   );
 
+  const dynamicTitle = filters.brand
+    ? `Best & Most Reliable Used ${filters.brand} Superbikes Delhi | Saraswati Superbikes`
+    : filters.subcategory === 'sports'
+    ? 'Best Second Hand Sports Bikes & Premium Racing Bikes Delhi | Saraswati Superbikes'
+    : currentCategory === 'superbike'
+    ? 'Best & Most Reliable Pre-Owned Superbikes in Delhi NCR | Karol Bagh Studio'
+    : 'Best Second Hand Bikes & Premium Pre-Owned Superbikes Delhi | Saraswati Superbikes';
+
+  const dynamicDesc = `Explore Delhi NCR's best and most reliable verified second hand bikes, premium superbikes, sports bikes and track machines in Karol Bagh. 120-point dyno inspected with Pan-India transport.`;
+
   return (
     <div className="min-h-screen bg-[#FAFAF8] pt-24">
+      <SEO
+        title={dynamicTitle}
+        description={dynamicDesc}
+        keywords="best second hand bikes, premium superbikes delhi, reliable used bikes karol bagh, best sports bikes delhi, racing bikes, how to get a bike in delhi, reliable bike dealer delhi"
+        canonicalUrl="https://saraswatimotors.in/inventory"
+      />
       {/* Page Header */}
       <div className="bg-[#111118] pt-10 pb-16 px-4 sm:px-6 mb-[-2rem]">
         <div className="max-w-7xl mx-auto">

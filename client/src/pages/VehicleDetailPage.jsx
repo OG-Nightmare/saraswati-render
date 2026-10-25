@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Phone, MessageCircle, Calendar, Gauge, Fuel, Settings, Users, Shield, MapPin, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import SEO from '../components/SEO';
 import api from '../lib/api';
 
 export default function VehicleDetailPage() {
@@ -48,8 +49,41 @@ export default function VehicleDetailPage() {
     { icon: Shield, label: 'Insurance', value: vehicle.insuranceStatus },
   ];
 
+  const vehicleSchema = vehicle ? {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: `${vehicle.year} ${vehicle.title}`,
+    description: vehicle.description || `Pre-owned ${vehicle.title} in Delhi Karol Bagh. ${vehicle.kilometers?.toLocaleString()} km, ${vehicle.ownership} owner, dyno tested with verified RC transfer.`,
+    image: images[0],
+    brand: {
+      '@type': 'Brand',
+      name: vehicle.brand || 'Superbike'
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'INR',
+      price: vehicle.price,
+      availability: vehicle.status === 'sold' ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+      seller: {
+        '@type': 'MotorcycleDealer',
+        name: 'Saraswati Superbikes',
+        telephone: '+919811798761'
+      }
+    }
+  } : null;
+
   return (
     <div className="min-h-screen bg-[#FAFAF8] pt-24">
+      {vehicle && (
+        <SEO
+          title={`${vehicle.year} ${vehicle.title} For Sale in Delhi | Saraswati Superbikes`}
+          description={`Verified pre-owned ${vehicle.year} ${vehicle.title} in Delhi NCR. ${vehicle.kilometers?.toLocaleString()} km, ${vehicle.ownership} owner, dyno-tested with clear legal papers & Karol Bagh showroom delivery.`}
+          keywords={`${vehicle.brand} second hand delhi, ${vehicle.title} used delhi, second hand bikes, superbikes, sports bikes, racing bikes`}
+          canonicalUrl={`https://saraswatimotors.in/inventory/${id}`}
+          ogImage={images[0]}
+          schemaJson={vehicleSchema}
+        />
+      )}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
         {/* Breadcrumb */}
         <Link to="/inventory" className="inline-flex items-center gap-2 text-[#6B6965] hover:text-[#1C1C1E] mb-6 text-sm font-medium">

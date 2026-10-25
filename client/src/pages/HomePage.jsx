@@ -24,6 +24,8 @@ import PhotoShuffleHero from '../components/PhotoShuffleHero';
 import SuperbikeShowcase from '../components/SuperbikeShowcase';
 import VehicleCard from '../components/VehicleCard';
 import FeaturedReels from '../components/FeaturedReels';
+import DelhiBikeSEOSection from '../components/DelhiBikeSEOSection';
+import SEO from '../components/SEO';
 import api from '../lib/api';
 
 // ── Superbike Manufacturers Marquee ──────────────────────────────────────
@@ -175,6 +177,12 @@ export default function HomePage() {
 
   return (
     <div className="bg-[#FAFAFC] min-h-screen">
+      <SEO
+        title="Saraswati Superbikes | Second Hand Bikes, Pre-Owned Superbikes & Sports Bikes Delhi"
+        description="Delhi's premier showroom for verified second hand bikes, pre-owned superbikes & sports bikes. Buy, sell, or finance Ducati, BMW S1000RR, Kawasaki Ninja ZX-10R, Yamaha R1 & more in Karol Bagh, New Delhi with pan-India delivery."
+        keywords="second hand bikes, superbikes, sports bikes, racing bikes, how to get a bike in delhi, second hand bikes delhi, used superbikes karol bagh, pre owned superbikes, used sports bikes in delhi, buy superbike delhi, second hand racing bike, kawasaki ninja used delhi, bmw s1000rr second hand, ducati second hand delhi, hayabusa used delhi, best bike showroom karol bagh"
+        canonicalUrl="https://saraswatimotors.in/"
+      />
 
       {/* ── 0. Dark Scroll-Driven Intro Hero ────────────────────────────── */}
       <ScrollIntroHero />
@@ -311,6 +319,9 @@ export default function HomePage() {
           <TestimonialsSection testimonials={testimonials} />
         </div>
       </section>
+
+      {/* ── 6.5 Delhi Bike Buyer's Guide, SEO Hub & FAQ ────────────────── */}
+      <DelhiBikeSEOSection />
 
       {/* ── 7. VIP Concierge & Trade-In CTA ────────────────────────────── */}
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6">

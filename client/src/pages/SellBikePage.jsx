@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Upload, CheckCircle, Phone, User, Bike } from 'lucide-react';
 import api from '../lib/api';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 
 const inputCls = 'w-full bg-white border border-[#E5E4E0] text-[#1C1C1E] placeholder-[#9C9A97] px-4 py-3 rounded-xl focus:outline-none focus:border-[#F97316] transition-colors text-sm shadow-sm';
 const labelCls = 'text-[#1C1C1E] text-xs font-semibold mb-1.5 block';
@@ -87,6 +88,12 @@ export default function SellBikePage() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] pt-24 pb-20">
+      <SEO
+        title="Best Place to Sell Your Superbike in Delhi | Reliable Valuation & Instant Payout"
+        description="Sell your superbike or sports bike to Delhi's best and most reliable motorcycle dealer. Instant transparent valuation, spot same-day payment & guaranteed RC transfer in Karol Bagh."
+        keywords="best place to sell superbike delhi, reliable bike buyers delhi, sell superbike for highest price, instant payment bike valuation, sell sports bike karol bagh, best used bike valuation delhi, sell used kawasaki ducati bmw"
+        canonicalUrl="https://saraswatimotors.in/sell"
+      />
       {/* Header */}
       <div className="bg-[#111118] pt-10 pb-20 px-4 sm:px-6 mb-[-4rem]">
         <div className="max-w-3xl mx-auto">

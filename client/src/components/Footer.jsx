@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Phone, MapPin, Mail, Share2, Rss, Video, ArrowUp, Flame, ShieldCheck } from 'lucide-react';
+import BrandLogo from './BrandLogo';
 
 const quickLinks = [
   { to: '/', label: 'Home' },
@@ -30,20 +31,10 @@ export default function Footer() {
 
           {/* Column 1: Brand & Contact Info */}
           <div className="lg:col-span-2 space-y-6">
-            <Link to="/" className="inline-flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-tr from-[#FF5500] to-[#D97706] rounded-xl flex items-center justify-center shadow-lg border border-white/20">
-                <span className="text-white text-xl font-black" style={{ fontFamily: 'Syne, sans-serif' }}>S</span>
-              </div>
-              <div>
-                <span className="text-xl font-black tracking-tight flex items-center gap-1.5" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                  <span className="text-white">SARASWATI</span>
-                  <span className="text-[#FF5500]">SUPERBIKES</span>
-                </span>
-                <div className="text-[10px] text-[#FF5500] font-extrabold tracking-widest uppercase -mt-1">
-                  Premier Pre-Owned Superbike Gallery
-                </div>
-              </div>
-            </Link>
+            <BrandLogo size={42} />
+            <div className="text-[10px] text-[#FF5500] font-extrabold tracking-widest uppercase -mt-4">
+              Premier Pre-Owned Superbike Gallery
+            </div>
 
             <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
               Delhi's landmark destination for verified pre-owned luxury superbikes and hyperbikes. Every machine dyno-inspected, legally clear, and delivered pan-India.
@@ -125,6 +116,42 @@ export default function Footer() {
             </div>
           </div>
 
+        </div>
+
+        {/* SEO Keyword & Regional Search Cloud Strip */}
+        <div className="mt-12 pt-8 border-t border-slate-800/80">
+          <p className="text-[11px] font-extrabold uppercase tracking-widest text-[#FF5500] mb-3">
+            Popular Delhi Superbike & Second Hand Motorcycle Searches
+          </p>
+          <div className="flex flex-wrap gap-x-3 gap-y-2 text-xs text-slate-400">
+            <Link to="/inventory?search=second+hand" className="hover:text-white transition-colors">Second Hand Bikes Delhi</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/inventory?category=superbike" className="hover:text-white transition-colors">Used Superbikes Karol Bagh</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/inventory?subcategory=sports" className="hover:text-white transition-colors">Sports Bikes in Delhi</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/inventory?subcategory=sports" className="hover:text-white transition-colors">Racing Bikes & Track Machines</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/#faq" className="hover:text-white transition-colors">How to Get a Bike in Delhi</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/inventory?brand=Kawasaki" className="hover:text-white transition-colors">Kawasaki Ninja ZX-10R & Z900</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/inventory?brand=BMW" className="hover:text-white transition-colors">BMW S1000RR Used Delhi</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/inventory?brand=Ducati" className="hover:text-white transition-colors">Ducati Panigale V4 Pre-Owned</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/inventory?brand=Suzuki" className="hover:text-white transition-colors">Suzuki Hayabusa Delhi</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/services" className="hover:text-white transition-colors">Best Superbike Services Delhi</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/services" className="hover:text-white transition-colors">Reliable Motorcycle Inspection & Dyno</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/services" className="hover:text-white transition-colors">Premium Enclosed Transport Pan-India</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/services" className="hover:text-white transition-colors">Delhi RTO RC Transfer & NOC</Link>
+            <span className="text-slate-600">•</span>
+            <Link to="/sell" className="hover:text-white transition-colors">Sell Used Superbike Delhi</Link>
+          </div>
         </div>
       </div>
 

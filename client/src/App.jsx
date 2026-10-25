@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import BikeLoader from './components/BikeLoader';
+import { Analytics } from '@vercel/analytics/react';
 
 // Lazy-loaded pages for lightning-fast performance & optimized bundle size
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -83,6 +84,7 @@ export default function App() {
             transition={{ duration: 0.4, ease: 'easeOut' }}
           >
             <BrowserRouter>
+              <Analytics />
               <Toaster
                 position="top-right"
                 toastOptions={{

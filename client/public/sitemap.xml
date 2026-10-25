@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://saraswatimotors.in/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Complete Superbike & Second Hand Bikes Inventory -->
+  <url>
+    <loc>https://saraswatimotors.in/inventory</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Superbikes Category -->
+  <url>
+    <loc>https://saraswatimotors.in/inventory?category=superbike</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Sports Bikes Category -->
+  <url>
+    <loc>https://saraswatimotors.in/inventory?subcategory=sports</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Sell Your Bike -->
+  <url>
+    <loc>https://saraswatimotors.in/sell</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Best Services, Dyno Inspection & Pan-India Transport -->
+  <url>
+    <loc>https://saraswatimotors.in/services</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- About Saraswati Superbikes Showroom Karol Bagh -->
+  <url>
+    <loc>https://saraswatimotors.in/about</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact & Showroom Visit -->
+  <url>
+    <loc>https://saraswatimotors.in/contact</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+</urlset>

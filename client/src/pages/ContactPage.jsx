@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Phone, MessageCircle, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
 import api from '../lib/api';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 
 export default function ContactPage() {
   const [params] = useSearchParams();
@@ -35,8 +36,39 @@ export default function ContactPage() {
     }
   };
 
+  const contactSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact Saraswati Superbikes Karol Bagh Delhi',
+    mainEntity: {
+      '@type': 'MotorcycleDealer',
+      name: 'Saraswati Superbikes',
+      telephone: '+919811798761',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'T-2531, Faiz Road',
+        addressLocality: 'Karol Bagh',
+        addressRegion: 'New Delhi',
+        postalCode: '110005',
+        addressCountry: 'IN',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 28.6507,
+        longitude: 77.1983,
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen bg-[#FAFAF8] pt-24 pb-16">
+      <SEO
+        title="Best & Most Reliable Superbike Showroom Near Me | Contact Saraswati Superbikes Delhi"
+        description="Visit Delhi NCR’s best and most reliable superbike showroom at T-2531 Faiz Road, Karol Bagh. Call +91 98117 98761 for premium test rides, instant valuation & verified pre-owned bikes."
+        keywords="best bike showroom near me, superbike showroom near me, reliable bike dealer karol bagh, contact saraswati superbikes, test ride superbike delhi, most reliable bike showroom delhi, pre owned bike dealer faiz road"
+        canonicalUrl="https://saraswatimotors.in/contact"
+        schemaJson={contactSchema}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-14">

@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Shield, Eye, Heart, TrendingUp } from 'lucide-react';
+import SEO from '../components/SEO';
 
 function AnimCounter({ target, suffix = '' }) {
   const [count, setCount] = useState(0);
@@ -30,17 +31,46 @@ const values = [
 ];
 
 export default function AboutPage() {
+  const aboutSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About Saraswati Superbikes - Delhi’s Premier Motorcycle Gallery',
+    description: 'Learn about Saraswati Superbikes, Delhi NCR’s best and most reliable showroom for verified pre-owned luxury superbikes and sports motorcycles.',
+    mainEntity: {
+      '@type': 'MotorcycleDealer',
+      name: 'Saraswati Superbikes',
+      address: 'T-2531, Faiz Road, Karol Bagh, New Delhi 110005',
+      telephone: '+919811798761',
+      priceRange: '₹₹₹₹',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '184',
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen bg-[#FAFAF8] pt-24 pb-16">
+      <SEO
+        title="Best & Most Reliable Superbike Showroom in Delhi | About Saraswati Superbikes"
+        description="Discover why Saraswati Superbikes is rated the best, most reliable and premium pre-owned superbike showroom in Delhi NCR. Karol Bagh heritage, 120-point dyno checks & verified paperwork."
+        keywords="best superbike showroom delhi, reliable bike dealer delhi, premium superbike showroom karol bagh, best second hand bike dealer, reliable used superbike gallery, most trusted motorcycle dealer delhi, saraswati superbikes heritage"
+        canonicalUrl="https://saraswatimotors.in/about"
+        schemaJson={aboutSchema}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Hero */}
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
-          <span className="text-[#F97316] text-sm font-bold uppercase tracking-widest mb-3 block">Our Story</span>
-          <h1 className="text-4xl md:text-6xl font-black text-[#1C1C1E] mb-6" style={{ fontFamily: 'Outfit, sans-serif' }}>About Saraswati Motors</h1>
-          <p className="text-[#6B6965] text-lg max-w-3xl mx-auto leading-relaxed">
-            Saraswati Motors has built its reputation on trust, transparency, and customer satisfaction.
-            Based in the heart of Karol Bagh, New Delhi — we specialize in quality pre-owned bikes
-            that undergo thorough inspections before being listed.
+          <span className="text-[#FF5500] text-xs font-black uppercase tracking-widest mb-3 block">Delhi's Landmark Heritage</span>
+          <h1 className="text-4xl md:text-6xl font-black text-[#1C1C1E] mb-6" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            The Best & Most Reliable <br />
+            <span className="text-[#FF5500]">Superbike Studio in Delhi</span>
+          </h1>
+          <p className="text-[#6B6965] text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+            Saraswati Superbikes (Saraswati Motors) has built its premier reputation across India on uncompromising
+            reliability, track-tested mechanical inspection, and 100% legal transparency.
+            Based in Karol Bagh, New Delhi — we are the trusted landmark destination for collectors and enthusiasts.
           </p>
         </motion.div>
 
