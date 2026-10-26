@@ -33,12 +33,26 @@ function ReelCard({ reel, isLow, index }) {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    const attempt = video.play();
-    if (attempt !== undefined) {
-      attempt.catch(() => {
-        // Autoplay gracefully handled if blocked
-      });
-    }
+
+    // Play only when visible in viewport, pause when offscreen to conserve CPU/bandwidth
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const attempt = video.play();
+          if (attempt !== undefined) {
+            attempt.catch(() => {});
+          }
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.15, rootMargin: '150px 0px' }
+    );
+
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -58,11 +72,10 @@ function ReelCard({ reel, isLow, index }) {
         <video
           ref={videoRef}
           src={reel.src}
-          autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           className="w-full h-full object-cover block pointer-events-none group-hover:scale-105 transition-transform duration-500"
         />
 

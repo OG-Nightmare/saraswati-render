@@ -7,8 +7,9 @@ import AdminRoute from './components/AdminRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
-import BikeLoader from './components/BikeLoader';
 import { Analytics } from '@vercel/analytics/react';
+
+const BikeLoader = lazy(() => import('./components/BikeLoader'));
 
 // Lazy-loaded pages for lightning-fast performance & optimized bundle size
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -99,7 +100,9 @@ export default function App() {
               transition={{ duration: 0.35, ease: 'easeInOut' }}
               className="fixed inset-0 z-[9999] bg-[#07090E] pointer-events-auto"
             >
-              <BikeLoader onComplete={handleLoaderComplete} />
+              <Suspense fallback={null}>
+                <BikeLoader onComplete={handleLoaderComplete} />
+              </Suspense>
             </motion.div>
           )}
         </AnimatePresence>

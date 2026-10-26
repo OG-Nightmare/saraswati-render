@@ -29,19 +29,26 @@ export default function Navbar() {
   // When scrolling past the video hero onto white/light background sections, become frosted translucent glass
   useEffect(() => {
     const isHomepage = location.pathname === '/';
+    let ticking = false;
+
+    const updateScrollState = () => {
+      const scrollY = window.scrollY;
+      const shouldShow = isHomepage ? scrollY > 25 : true;
+      const shouldTranslucent = isHomepage ? scrollY > window.innerHeight * 1.82 : scrollY > 30;
+
+      setShowNavbar(prev => (prev !== shouldShow ? shouldShow : prev));
+      setIsTranslucent(prev => (prev !== shouldTranslucent ? shouldTranslucent : prev));
+      ticking = false;
+    };
 
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (isHomepage) {
-        setShowNavbar(scrollY > 25);
-        setIsTranslucent(scrollY > window.innerHeight * 1.82);
-      } else {
-        setShowNavbar(true);
-        setIsTranslucent(scrollY > 30);
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollState);
+        ticking = true;
       }
     };
 
-    handleScroll();
+    updateScrollState();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);

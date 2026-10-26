@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ChevronDown, Zap } from 'lucide-react';
 import localHeroVideo from '../assets/hero_bike_video.mp4';
+import heroDarkPoster from '../assets/hero_dark_cinematic.webp';
 
 const row1Bikes = [
   'ZX-10R',
@@ -128,11 +129,12 @@ export default function ScrollIntroHero() {
           <motion.video
             style={{ scale: videoScale }}
             src={localHeroVideo}
+            poster={heroDarkPoster}
             autoPlay
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             aria-hidden="true"
             tabIndex={-1}
             className="w-full h-full object-cover object-center filter brightness-[0.62] contrast-[1.20]"

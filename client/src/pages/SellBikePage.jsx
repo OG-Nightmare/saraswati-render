@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -66,9 +66,18 @@ export default function SellBikePage() {
     },
   };
 
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+
   const handleImage = e => {
     const file = e.target.files[0];
     if (!file) return;
+    if (preview) {
+      URL.revokeObjectURL(preview);
+    }
     setImage(file);
     setPreview(URL.createObjectURL(file));
   };

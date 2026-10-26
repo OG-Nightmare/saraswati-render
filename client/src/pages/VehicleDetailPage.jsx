@@ -105,6 +105,9 @@ export default function VehicleDetailPage() {
                 key={imgIdx}
                 src={images[imgIdx]}
                 alt={vehicle.title}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
@@ -150,7 +153,15 @@ export default function VehicleDetailPage() {
                         : 'border-[#E5E4E0] opacity-70 hover:opacity-100 hover:border-[#F97316]/50'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img
+                      src={img}
+                      alt={`${vehicle.title} thumbnail ${i + 1}`}
+                      width={88}
+                      height={64}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                 ))}
               </div>

@@ -90,8 +90,17 @@ export default function InventoryPage() {
     setSearchParams({});
   };
 
+  const [debouncedSearch, setDebouncedSearch] = useState(filters.search);
+
   useEffect(() => {
-    let isCancelled = false;
+    const handler = setTimeout(() => {
+      setDebouncedSearch(filters.search);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [filters.search]);
+
+  useEffect(() => {
+    const controller = new AbortController();
 
     const fetchVehicles = async () => {
       setLoading(true);
@@ -100,39 +109,45 @@ export default function InventoryPage() {
           page,
           limit: 12,
           category: currentCategory,
-          ...filters,
+          subcategory: filters.subcategory,
+          brand: filters.brand,
+          fuelType: filters.fuelType,
+          transmission: filters.transmission,
+          minPrice: filters.minPrice,
+          maxPrice: filters.maxPrice,
+          sort: filters.sort,
+          search: debouncedSearch,
         };
         // Clean empty parameters
         Object.keys(queryParams).forEach(k => {
           if (!queryParams[k] && queryParams[k] !== 0) delete queryParams[k];
         });
 
-        const { data } = await api.get('/vehicles', { params: queryParams });
+        const { data } = await api.get('/vehicles', {
+          params: queryParams,
+          signal: controller.signal,
+        });
 
-        if (!isCancelled) {
-          const vehicleList = Array.isArray(data?.vehicles) ? data.vehicles : (Array.isArray(data) ? data : []);
-          setVehicles(vehicleList);
-          setTotal(typeof data?.total === 'number' ? data.total : vehicleList.length);
-          setPages(typeof data?.pages === 'number' ? data.pages : 1);
-        }
+        const vehicleList = Array.isArray(data?.vehicles) ? data.vehicles : (Array.isArray(data) ? data : []);
+        setVehicles(vehicleList);
+        setTotal(typeof data?.total === 'number' ? data.total : vehicleList.length);
+        setPages(typeof data?.pages === 'number' ? data.pages : 1);
       } catch (e) {
-        console.error('Failed to fetch inventory:', e);
-        if (!isCancelled) {
+        if (e.name !== 'CanceledError' && e.code !== 'ERR_CANCELED') {
+          console.error('Failed to fetch inventory:', e);
           setVehicles([]);
           setTotal(0);
           setPages(1);
         }
       } finally {
-        if (!isCancelled) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     };
 
     fetchVehicles();
 
     return () => {
-      isCancelled = true;
+      controller.abort();
     };
   }, [
     currentCategory,
@@ -143,7 +158,7 @@ export default function InventoryPage() {
     filters.minPrice,
     filters.maxPrice,
     filters.sort,
-    filters.search,
+    debouncedSearch,
     page,
   ]);
 

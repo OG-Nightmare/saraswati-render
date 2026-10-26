@@ -21,8 +21,6 @@ import {
 
 import ScrollIntroHero from '../components/ScrollIntroHero';
 import PhotoShuffleHero from '../components/PhotoShuffleHero';
-import SuperbikeShowcase from '../components/SuperbikeShowcase';
-import VehicleCard from '../components/VehicleCard';
 import FeaturedReels from '../components/FeaturedReels';
 import DelhiBikeSEOSection from '../components/DelhiBikeSEOSection';
 import SEO from '../components/SEO';
@@ -140,40 +138,23 @@ function TestimonialsSection({ testimonials }) {
 }
 
 export default function HomePage() {
-  const [featured, setFeatured] = useState(null);
   const [testimonials, setTestimonials] = useState([]);
-  const [activeCategory, setActiveCategory] = useState('all');
 
   useEffect(() => {
-    Promise.allSettled([
-      api.get('/vehicles?featured=true&limit=6'),
-      api.get('/testimonials'),
-    ]).then(([featRes, testRes]) => {
-      if (featRes.status === 'fulfilled') {
-        const list = Array.isArray(featRes.value.data?.vehicles)
-          ? featRes.value.data.vehicles
-          : Array.isArray(featRes.value.data)
-            ? featRes.value.data
-            : [];
-        setFeatured(list);
-      } else {
-        setFeatured([]);
-      }
-      if (testRes.status === 'fulfilled') {
-        const list = Array.isArray(testRes.value.data) ? testRes.value.data : [];
-        setTestimonials(list);
-      }
-    });
-  }, []);
+    let isMounted = true;
+    api.get('/testimonials')
+      .then((res) => {
+        if (isMounted) {
+          const list = Array.isArray(res.data) ? res.data : [];
+          setTestimonials(list);
+        }
+      })
+      .catch(() => {});
 
-  const filteredVehicles =
-    activeCategory === 'all'
-      ? featured || []
-      : (featured || []).filter((v) =>
-        activeCategory === 'superbike'
-          ? v.category === 'superbike'
-          : v.subcategory === activeCategory
-      );
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <div className="bg-[#FAFAFC] min-h-screen">

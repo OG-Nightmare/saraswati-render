@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import sLogoMetallic from '../assets/s_logo_metallic.png';
+import sLogoMetallic from '../assets/s_logo_metallic.webp';
 
 /**
  * Superbikes by Saraswati Motors - Official 3D Metallic Emblem & Wordmark
@@ -18,6 +18,9 @@ export function SuperbikesEmblem({ size = 44, framed = true, className = '' }) {
         <img
           src={sLogoMetallic}
           alt="Saraswati Superbikes 3D Metallic S Emblem"
+          width={size}
+          height={size}
+          decoding="async"
           className="w-[92%] h-[92%] object-contain relative z-10 drop-shadow-[0_2px_8px_rgba(255,85,0,0.45)] group-hover:scale-105 transition-transform"
         />
       </div>
@@ -32,6 +35,9 @@ export function SuperbikesEmblem({ size = 44, framed = true, className = '' }) {
       <img
         src={sLogoMetallic}
         alt="Saraswati Superbikes 3D Metallic S Emblem"
+        width={size}
+        height={Math.round(size * 0.85)}
+        decoding="async"
         className="w-full h-full object-contain drop-shadow-[0_4px_14px_rgba(255,85,0,0.5)] group-hover:scale-105 transition-transform"
       />
     </div>
