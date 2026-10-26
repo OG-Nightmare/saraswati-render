@@ -5,10 +5,12 @@ import BrandLogo from './BrandLogo';
 const quickLinks = [
   { to: '/', label: 'Home' },
   { to: '/inventory', label: 'Superbike Inventory' },
+  { to: '/inventory?maxPrice=500000', label: 'Cheap Superbikes (Under ₹5L)' },
   { to: '/inventory?category=superbike', label: '1000cc+ Hyperbikes' },
   { to: '/services', label: 'VIP Services & Transport' },
   { to: '/about', label: 'Showroom Heritage' },
   { to: '/contact', label: 'Book Test Ride' },
+  { to: '/sell', label: 'Sell / Trade-In Bike' },
 ];
 
 const superbikeBrands = [

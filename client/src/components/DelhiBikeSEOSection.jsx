@@ -52,7 +52,9 @@ const BUYING_STEPS = [
 ];
 
 const POPULAR_SEARCH_HUBS = [
+  { label: 'Cheap Superbikes in Delhi', link: '/inventory?maxPrice=500000' },
   { label: 'Second Hand Bikes Delhi', link: '/inventory?search=second+hand' },
+  { label: 'Affordable Sports Bikes Delhi', link: '/inventory?subcategory=sports' },
   { label: 'Pre-Owned Superbikes (1000cc+)', link: '/inventory?category=superbike' },
   { label: 'Track & Racing Bikes', link: '/inventory?subcategory=sports' },
   { label: 'Middleweight Sports Bikes', link: '/inventory?subcategory=naked' },
@@ -62,11 +64,15 @@ const POPULAR_SEARCH_HUBS = [
   { label: 'Suzuki Hayabusa GSX-1300R', link: '/inventory?brand=Suzuki' },
   { label: 'Yamaha YZF-R1 & MT-09', link: '/inventory?brand=Yamaha' },
   { label: 'Aprilia RSV4 & RS660', link: '/inventory?brand=Aprilia' },
-  { label: 'Used Bikes Under 5 Lakhs', link: '/inventory?maxPrice=500000' },
+  { label: 'Budget Superbikes Under 5 Lakhs', link: '/inventory?maxPrice=500000' },
   { label: 'Karol Bagh Faiz Road Showroom', link: '/contact' },
 ];
 
 const FAQS = [
+  {
+    q: 'Where can I find cheap superbikes in Delhi?',
+    a: 'You can find verified affordable and cheap superbikes in Delhi at Saraswati Superbikes in Karol Bagh (Faiz Road). We maintain a rotating inventory of budget-friendly pre-owned superbikes and sports bikes (ranging from Kawasaki Ninja 300/400/650 and KTM RC 390 to accessible liter-class machines under ₹5 to ₹8 Lakhs), complete with 120-point dyno diagnostics and low-cost EMI finance plans.',
+  },
   {
     q: 'How to get a bike in Delhi from Saraswati Superbikes?',
     a: 'Getting your dream bike in Delhi is simple and transparent: 1. Explore our live digital inventory or walk into our Karol Bagh showroom at T-2531 Faiz Road. 2. Inspect the bike and review its 120-point mechanical and dyno diagnostic report. 3. Finalize payment via instant bank transfer, debit/credit card, or superbike finance EMI. 4. Our team handles complete Delhi RTO RC transfer or generates an outstation NOC with doorstep enclosed transport pan-India.',
@@ -119,8 +125,8 @@ export default function DelhiBikeSEOSection() {
             </span>
           </h2>
           <p className="text-slate-400 text-sm sm:text-base mt-4 leading-relaxed">
-            Whether you are searching for your first pre-owned sports bike, a track-ready racing machine,
-            or an exotic hyperbike, Saraswati Superbikes in Karol Bagh provides the safest, most transparent
+            Whether you are searching for verified cheap superbikes in Delhi, an affordable pre-owned sports bike, a track-ready racing machine,
+            or an exotic hyperbike, Saraswati Superbikes in Karol Bagh provides the safest, most budget-friendly, and transparent
             buying experience in India.
           </p>
         </div>

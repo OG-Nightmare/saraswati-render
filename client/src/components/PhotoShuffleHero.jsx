@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Play, Pause, ShieldCheck, Zap, Gauge, Award, Sparkles } from 'lucide-react';
 
-import heroDucati from '../assets/hero_ducati.png';
-import heroBmw from '../assets/hero_bmw.png';
-import heroKawasaki from '../assets/hero_kawasaki.png';
-import heroYamaha from '../assets/hero_yamaha.png';
-import heroAprilia from '../assets/hero_aprilia.png';
-import heroMvagusta from '../assets/hero_mvagusta.png';
+import heroDucati from '../assets/hero_ducati.webp';
+import heroBmw from '../assets/hero_bmw.webp';
+import heroKawasaki from '../assets/hero_kawasaki.webp';
+import heroYamaha from '../assets/hero_yamaha.webp';
+import heroAprilia from '../assets/hero_aprilia.webp';
+import heroMvagusta from '../assets/hero_mvagusta.webp';
 import api from '../lib/api';
 
 // ── Static fallback data (shown while loading or if no featured bikes exist) ──
@@ -254,12 +254,15 @@ export default function PhotoShuffleHero() {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF5500]"></span>
             </span>
             <span className="text-xs font-bold uppercase tracking-widest text-[#475569]">
-              Delhi's Premier Pre-Owned Superbike Gallery
+              Delhi's Gallery for Verified Cheap, Budget & Luxury Superbikes
             </span>
           </div>
           <div className="flex items-center gap-4 text-xs font-semibold text-[#0F172A]">
             <span className="flex items-center gap-1.5 bg-white border border-[#E2E8F0] px-3 py-1 rounded-full shadow-xs">
-              <ShieldCheck size={14} className="text-[#FF5500]" /> 100% Track Inspected
+              <Zap size={14} className="text-[#FF5500]" /> Budget & Flagship Bikes
+            </span>
+            <span className="flex items-center gap-1.5 bg-white border border-[#E2E8F0] px-3 py-1 rounded-full shadow-xs">
+              <ShieldCheck size={14} className="text-[#16A34A]" /> 100% Dyno Inspected
             </span>
             <span className="flex items-center gap-1.5 bg-white border border-[#E2E8F0] px-3 py-1 rounded-full shadow-xs hidden sm:flex">
               <Award size={14} className="text-[#D97706]" /> Pan-India VIP Transport

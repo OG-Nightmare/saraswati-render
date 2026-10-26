@@ -18,15 +18,15 @@ const template = fs.readFileSync(templatePath, 'utf8');
 const routes = [
   {
     route: 'inventory',
-    title: 'Best Second Hand Bikes & Premium Pre-Owned Superbikes Delhi | Saraswati Superbikes',
-    description: "Explore Delhi NCR's best and most reliable verified second hand bikes, premium superbikes, sports bikes and track machines in Karol Bagh. 120-point dyno inspected with Pan-India transport.",
+    title: 'Cheap Superbikes in Delhi, Second Hand & Pre-Owned Superbikes | Saraswati Superbikes',
+    description: "Explore Delhi NCR's best verified collection of cheap superbikes in Delhi, budget second hand sports bikes, and pre-owned superbikes in Karol Bagh. 120-point dyno inspected with easy EMI.",
     canonical: 'https://saraswatimotors.in/inventory',
-    keywords: 'best second hand bikes, premium superbikes delhi, reliable used bikes karol bagh, best sports bikes delhi, racing bikes, how to get a bike in delhi, reliable bike dealer delhi',
+    keywords: 'cheap superbikes in delhi, cheap superbikes, affordable superbikes delhi, budget superbikes karol bagh, best second hand bikes, premium superbikes delhi, reliable used bikes karol bagh, best sports bikes delhi, racing bikes, how to get a bike in delhi, reliable bike dealer delhi',
     schema: {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: 'Verified Pre-Owned Superbikes & Sports Bikes Fleet',
-      description: 'Explore Delhi NCR premier verified collection of pre-owned luxury superbikes and sports motorcycles at Saraswati Superbikes in Karol Bagh.',
+      name: 'Cheap Superbikes & Pre-Owned Superbikes Fleet in Delhi',
+      description: 'Explore Delhi NCR premier verified collection of cheap superbikes, budget sports bikes and pre-owned luxury motorcycles at Saraswati Superbikes in Karol Bagh.',
       url: 'https://saraswatimotors.in/inventory',
       provider: {
         '@type': 'MotorcycleDealer',

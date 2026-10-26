@@ -133,6 +133,8 @@ export default function ScrollIntroHero() {
             muted
             playsInline
             preload="auto"
+            aria-hidden="true"
+            tabIndex={-1}
             className="w-full h-full object-cover object-center filter brightness-[0.62] contrast-[1.20]"
           />
 

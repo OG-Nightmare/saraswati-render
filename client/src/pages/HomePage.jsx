@@ -178,9 +178,9 @@ export default function HomePage() {
   return (
     <div className="bg-[#FAFAFC] min-h-screen">
       <SEO
-        title="Saraswati Superbikes | Second Hand Bikes, Pre-Owned Superbikes & Sports Bikes Delhi"
-        description="Delhi's premier showroom for verified second hand bikes, pre-owned superbikes & sports bikes. Buy, sell, or finance Ducati, BMW S1000RR, Kawasaki Ninja ZX-10R, Yamaha R1 & more in Karol Bagh, New Delhi with pan-India delivery."
-        keywords="second hand bikes, superbikes, sports bikes, racing bikes, how to get a bike in delhi, second hand bikes delhi, used superbikes karol bagh, pre owned superbikes, used sports bikes in delhi, buy superbike delhi, second hand racing bike, kawasaki ninja used delhi, bmw s1000rr second hand, ducati second hand delhi, hayabusa used delhi, best bike showroom karol bagh"
+        title="Saraswati Superbikes | Cheap Superbikes in Delhi, Pre-Owned & Sports Bikes"
+        description="Find verified cheap superbikes in Delhi and budget pre-owned sports bikes. Buy, sell, or finance Kawasaki, Ducati, BMW S1000RR & more in Karol Bagh with dyno inspection, easy EMI & Pan-India delivery."
+        keywords="cheap superbikes in delhi, cheap superbikes, affordable superbikes delhi, budget superbikes karol bagh, cheap sports bikes in delhi, second hand bikes, superbikes, sports bikes, racing bikes, how to get a bike in delhi, second hand bikes delhi, used superbikes karol bagh, pre owned superbikes, used sports bikes in delhi, buy superbike delhi, second hand racing bike, kawasaki ninja used delhi, bmw s1000rr second hand, ducati second hand delhi, hayabusa used delhi, best bike showroom karol bagh"
         canonicalUrl="https://saraswatimotors.in/"
       />
 

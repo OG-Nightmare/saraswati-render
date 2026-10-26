@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Phone, MessageCircle, Calendar, Gauge, Fuel, Settings, Users, Shield, MapPin, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import SEO from '../components/SEO';
+import { optimizeImageUrl } from '../lib/imageOptimizer';
 import api from '../lib/api';
 
 export default function VehicleDetailPage() {
@@ -35,7 +36,7 @@ export default function VehicleDetailPage() {
   );
 
   const rawImages = vehicle.images?.length ? vehicle.images : ['https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80'];
-  const images = rawImages.map(img => img && typeof img === 'object' ? img.url : img);
+  const images = rawImages.map(img => optimizeImageUrl(img && typeof img === 'object' ? img.url : img, 1200));
   const formattedPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(vehicle.price);
   const waMsg = encodeURIComponent(`Hi! I'm interested in the ${vehicle.title} (₹${vehicle.price.toLocaleString()}) listed on Saraswati Motors.`);
 

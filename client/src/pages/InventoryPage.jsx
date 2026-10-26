@@ -158,22 +158,24 @@ export default function InventoryPage() {
     filters.search
   );
 
-  const dynamicTitle = filters.brand
+  const dynamicTitle = filters.maxPrice && Number(filters.maxPrice) <= 500000
+    ? `Cheap Superbikes in Delhi & Budget Sports Bikes Under 5 Lakhs | Saraswati Superbikes`
+    : filters.brand
     ? `Best & Most Reliable Used ${filters.brand} Superbikes Delhi | Saraswati Superbikes`
     : filters.subcategory === 'sports'
-    ? 'Best Second Hand Sports Bikes & Premium Racing Bikes Delhi | Saraswati Superbikes'
+    ? 'Cheap & Premium Second Hand Sports Bikes Delhi | Saraswati Superbikes'
     : currentCategory === 'superbike'
-    ? 'Best & Most Reliable Pre-Owned Superbikes in Delhi NCR | Karol Bagh Studio'
-    : 'Best Second Hand Bikes & Premium Pre-Owned Superbikes Delhi | Saraswati Superbikes';
+    ? 'Cheap & Verified Pre-Owned Superbikes in Delhi NCR | Karol Bagh Studio'
+    : 'Cheap Superbikes in Delhi, Second Hand & Pre-Owned Bikes | Saraswati Superbikes';
 
-  const dynamicDesc = `Explore Delhi NCR's best and most reliable verified second hand bikes, premium superbikes, sports bikes and track machines in Karol Bagh. 120-point dyno inspected with Pan-India transport.`;
+  const dynamicDesc = `Explore Delhi NCR's best collection of cheap superbikes in Delhi, budget second hand sports bikes, and luxury pre-owned superbikes in Karol Bagh. 120-point dyno inspected with easy EMI & Pan-India transport.`;
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] pt-24">
       <SEO
         title={dynamicTitle}
         description={dynamicDesc}
-        keywords="best second hand bikes, premium superbikes delhi, reliable used bikes karol bagh, best sports bikes delhi, racing bikes, how to get a bike in delhi, reliable bike dealer delhi"
+        keywords="cheap superbikes in delhi, cheap superbikes, affordable superbikes delhi, budget superbikes karol bagh, best second hand bikes, premium superbikes delhi, reliable used bikes karol bagh, best sports bikes delhi, racing bikes, how to get a bike in delhi, reliable bike dealer delhi"
         canonicalUrl="https://saraswatimotors.in/inventory"
       />
       {/* Page Header */}

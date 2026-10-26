@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Fuel, Calendar, Gauge, ArrowRight, Zap, MapPin, ShieldCheck, Flame } from 'lucide-react';
+import { optimizeImageUrl } from '../lib/imageOptimizer';
 
 const SUBCATEGORY_ICONS = {
   cruiser: '🛣️',
@@ -14,7 +15,8 @@ const SUBCATEGORY_ICONS = {
 
 export default function VehicleCard({ vehicle, index = 0 }) {
   const firstImg = vehicle.images?.[0];
-  const img = (firstImg && typeof firstImg === 'object' ? firstImg.url : firstImg) || 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80';
+  const rawImg = (firstImg && typeof firstImg === 'object' ? firstImg.url : firstImg) || 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80';
+  const img = optimizeImageUrl(rawImg, 700);
   const formattedPrice = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(vehicle.price);
 
   return (

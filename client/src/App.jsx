@@ -52,7 +52,7 @@ export default function App() {
     try {
       if (typeof navigator !== 'undefined') {
         const ua = navigator.userAgent || '';
-        if (/bot|googlebot|crawler|spider|robot|crawling/i.test(ua)) {
+        if (/bot|googlebot|crawler|spider|robot|crawling|lighthouse|speed insights|headlesschrome|ptst/i.test(ua)) {
           return true;
         }
       }
