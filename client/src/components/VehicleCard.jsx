@@ -53,10 +53,10 @@ export default function VehicleCard({ vehicle, index = 0 }) {
           </div>
         )}
 
-        {/* Subcategory Icon Badge */}
+        {/* Subcategory Badge */}
         {vehicle.subcategory && (
-          <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-sm w-8 h-8 rounded-full flex items-center justify-center shadow-md">
-            {SUBCATEGORY_ICONS[vehicle.subcategory] || '🏎️'}
+          <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/15 shadow-sm">
+            {vehicle.subcategory}
           </div>
         )}
 
