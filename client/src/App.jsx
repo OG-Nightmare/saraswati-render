@@ -7,6 +7,7 @@ import AdminRoute from './components/AdminRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import ScrollToTop from './components/ScrollToTop';
 import { Analytics } from '@vercel/analytics/react';
 
 const BikeLoader = lazy(() => import('./components/BikeLoader'));
@@ -75,6 +76,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Analytics />
         <Toaster
           position="top-right"
