@@ -195,8 +195,8 @@ export default function VehicleDetailPage() {
               className="bg-white border border-[#E5E4E0] rounded-2xl p-6 shadow-sm"
             >
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${vehicle.category === 'superbike' ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-blue-50 text-blue-600 border border-blue-200'}`}>
-                  {vehicle.category === 'superbike' ? '🏍 Superbike' : '🏙️ City Bike'}
+                <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${vehicle.category === 'superbike' ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-slate-100 text-slate-700 border border-slate-200'}`}>
+                  {vehicle.category === 'superbike' ? 'Superbike' : 'City & Street Bike'}
                 </span>
                 <span className="text-xs px-2.5 py-1 rounded-full bg-green-50 text-green-600 border border-green-200 font-semibold">✓ Verified</span>
                 {vehicle.status && vehicle.status !== 'available' && (

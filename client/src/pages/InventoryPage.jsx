@@ -11,13 +11,13 @@ const FUEL = ['All', 'Petrol', 'Electric'];
 const TRANSMISSION = ['All', 'Manual', 'Automatic'];
 const SUBCATEGORIES = ['All', 'sports', 'cruiser', 'adventure', 'naked', 'tourer', 'commuter', 'scooter'];
 const SUBCATEGORY_LABELS = {
-  sports: '🏁 Sports',
-  cruiser: '🛣️ Cruiser',
-  adventure: '⛰️ Adventure',
-  naked: '⚡ Naked',
-  tourer: '🗺️ Tourer',
-  commuter: '🏙️ Commuter',
-  scooter: '🛵 Scooter',
+  sports: 'Sports',
+  cruiser: 'Cruiser',
+  adventure: 'Adventure',
+  naked: 'Naked',
+  tourer: 'Tourer',
+  commuter: 'Commuter',
+  scooter: 'Scooter',
 };
 
 function FilterChip({ label, active, onClick, color = 'default' }) {
@@ -207,27 +207,27 @@ export default function InventoryPage() {
                 : 'text-[#6B6965] hover:bg-[#F4F3F0] hover:text-[#1C1C1E]'
             }`}
           >
-            🏍️ All Bikes
+            All Bikes
           </button>
           <button
             onClick={() => setFilter('category', 'superbike')}
             className={`flex-1 min-w-[120px] py-3 px-5 rounded-xl font-bold text-sm transition-all ${
               currentCategory === 'superbike'
-                ? 'bg-red-500 text-white shadow-md shadow-red-100'
-                : 'text-[#6B6965] hover:bg-red-50 hover:text-red-600'
+                ? 'bg-[#FF5500] text-white shadow-md shadow-orange-500/20'
+                : 'text-[#6B6965] hover:bg-orange-50 hover:text-[#FF5500]'
             }`}
           >
-            🏁 Superbikes
+            Superbikes
           </button>
           <button
             onClick={() => setFilter('category', 'city')}
             className={`flex-1 min-w-[120px] py-3 px-5 rounded-xl font-bold text-sm transition-all ${
               currentCategory === 'city'
-                ? 'bg-blue-600 text-white shadow-md shadow-blue-100'
-                : 'text-[#6B6965] hover:bg-blue-50 hover:text-blue-600'
+                ? 'bg-[#1C1C1E] text-white shadow-md'
+                : 'text-[#6B6965] hover:bg-[#F4F3F0] hover:text-[#1C1C1E]'
             }`}
           >
-            🏙️ City Bikes
+            City & Street Bikes
           </button>
         </motion.div>
 

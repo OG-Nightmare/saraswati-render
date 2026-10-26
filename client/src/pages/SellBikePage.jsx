@@ -269,7 +269,7 @@ export default function SellBikePage() {
               disabled={loading}
               className="w-full bg-[#F97316] hover:bg-[#EA6C10] disabled:opacity-60 text-white font-black text-lg py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-0.5"
             >
-              {loading ? 'Submitting...' : 'Submit My Bike 🏍️'}
+              {loading ? 'Submitting...' : 'Submit Bike for Valuation'}
             </button>
 
             <p className="text-center text-xs text-[#9C9A97]">

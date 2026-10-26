@@ -153,8 +153,8 @@ function VehicleModal({ vehicle, onClose, onSaved }) {
             <div>
               <label className="text-[#BDBDBD] text-xs mb-1 block">Category</label>
               <select className={inputCls} value={form.category} onChange={e => set('category', e.target.value)}>
-                <option value="city">🛵 City Bike</option>
-                <option value="superbike">🏍️ Superbike</option>
+                <option value="city">City & Street Bike</option>
+                <option value="superbike">Superbike</option>
               </select>
             </div>
             <div>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, ChevronRight, Play, Pause, ShieldCheck, Zap, Gauge, Award, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Play, Pause, ShieldCheck, Zap, Gauge, Award, Sparkles, Flame } from 'lucide-react';
 
 import heroDucati from '../assets/hero_ducati.webp';
 import heroBmw from '../assets/hero_bmw.webp';
@@ -18,7 +18,7 @@ export const HERO_SUPERBIKES = [
     brand: 'Ducati',
     model: 'Panigale V4 S',
     subtitle: 'Desmosedici Stradale • 1103 cc',
-    tag: '👑 FLAGSHIP SUPERBIKE',
+    tag: 'FLAGSHIP SUPERBIKE',
     power: '214 HP',
     acceleration: '2.8s (0-100)',
     topSpeed: '315 km/h',
@@ -32,7 +32,7 @@ export const HERO_SUPERBIKES = [
     brand: 'BMW Motorrad',
     model: 'S1000RR M Package',
     subtitle: 'ShiftCam Inline-4 • 999 cc',
-    tag: '⚡ TRACK EDITION',
+    tag: 'TRACK EDITION',
     power: '207 HP',
     acceleration: '2.9s (0-100)',
     topSpeed: '303 km/h',
@@ -46,7 +46,7 @@ export const HERO_SUPERBIKES = [
     brand: 'Kawasaki',
     model: 'Ninja H2 Carbon',
     subtitle: 'Supercharged Inline-4 • 998 cc',
-    tag: '🚀 SUPERCHARGED HYPERBIKE',
+    tag: 'SUPERCHARGED HYPERBIKE',
     power: '310 HP',
     acceleration: '2.5s (0-100)',
     topSpeed: '337 km/h',
@@ -60,7 +60,7 @@ export const HERO_SUPERBIKES = [
     brand: 'Yamaha',
     model: 'YZF-R1M Carbon',
     subtitle: 'Crossplane CP4 • 998 cc',
-    tag: '🏁 MOTOGP TECH',
+    tag: 'MOTOGP EDITION',
     power: '200 HP',
     acceleration: '2.9s (0-100)',
     topSpeed: '299 km/h',
@@ -74,7 +74,7 @@ export const HERO_SUPERBIKES = [
     brand: 'Aprilia',
     model: 'RSV4 1100 Factory',
     subtitle: 'Narrow V4 Engine • 1099 cc',
-    tag: '🔥 ITALIAN BEAST',
+    tag: 'ITALIAN V4 FACTORY',
     power: '217 HP',
     acceleration: '2.8s (0-100)',
     topSpeed: '305 km/h',
@@ -88,7 +88,7 @@ export const HERO_SUPERBIKES = [
     brand: 'MV Agusta',
     model: 'Superveloce 800',
     subtitle: 'Neo-Retro Triple • 798 cc',
-    tag: '🎨 MOTORCYCLE ART',
+    tag: 'COLLECTOR SPEC',
     power: '147 HP',
     acceleration: '3.0s (0-100)',
     topSpeed: '240 km/h',
@@ -140,14 +140,14 @@ export function vehicleToHeroBike(v) {
 
   const categoryTag =
     v.category === 'superbike'
-      ? '👑 FLAGSHIP SUPERBIKE'
+      ? 'FLAGSHIP SUPERBIKE'
       : v.subcategory === 'sports'
-      ? '🏁 TRACK EDITION'
+      ? 'TRACK EDITION'
       : v.subcategory === 'cruiser'
-      ? '🛣️ TOURING ICON'
+      ? 'TOURING ICON'
       : v.subcategory === 'adventure'
-      ? '⛰️ ADVENTURE'
-      : '⚡ VERIFIED SUPERBIKE';
+      ? 'ADVENTURE'
+      : 'VERIFIED SUPERBIKE';
 
   const formatWeight = (w) => {
     if (!w) return '—';
@@ -334,7 +334,7 @@ export default function PhotoShuffleHero() {
 
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-1 text-[11px] font-bold text-[#64748B] uppercase tracking-wider mb-1">
-                    🏁 Top Speed
+                    <Flame size={12} className="text-[#FF5500]" /> Top Speed
                   </div>
                   <div className="text-xl font-black text-[#0F172A]" style={{ fontFamily: 'Space Grotesk, monospace' }}>
                     {activeBike.topSpeed}
