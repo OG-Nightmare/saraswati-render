@@ -53,12 +53,6 @@ export default function VehicleCard({ vehicle, index = 0 }) {
           </div>
         )}
 
-        {/* Subcategory Badge */}
-        {vehicle.subcategory && (
-          <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/15 shadow-sm">
-            {vehicle.subcategory}
-          </div>
-        )}
 
         {/* Floating Price Tag */}
         <div className="absolute bottom-3 left-3 bg-[#FF5500] text-white text-sm font-black px-3.5 py-1.5 rounded-xl shadow-lg flex items-center gap-1" style={{ fontFamily: 'Space Grotesk, monospace' }}>
